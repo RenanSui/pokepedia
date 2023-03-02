@@ -50,7 +50,7 @@ const Header = () => {
       <form
         action=""
         onSubmit={loadIndividualPokemon}
-        className="mx-4 mt-5 mb-6 flex items-center rounded-md bg-pokedex-200 p-2 py-3"
+        className="group relative mx-4 mt-5 mb-6 flex items-center rounded-md bg-pokedex-200 p-2 py-3 transition-all duration-700"
       >
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
@@ -58,14 +58,21 @@ const Header = () => {
         />
         <input
           type="text"
-          placeholder="Name or number"
-          className=" rounded-md bg-pokedex-200 text-custom-dark-blue-900 outline-none"
+          id="pokemon"
+          className="rounded-md bg-pokedex-200 text-custom-dark-blue-900 outline-none"
+          autoComplete="off"
           onChange={(e) => {
             setPokemonSearchInput(e.target.value);
             e.target.value === '' && dispatch({ type: 'clearPokemons' });
           }}
           value={pokemonSearchInput}
         />
+        <label
+          htmlFor="pokemon"
+          className="absolute left-14 top-3 z-10 transition-all duration-700 group-hover:-top-3 group-hover:left-10 group-hover:scale-75"
+        >
+          Name or number
+        </label>
       </form>
     </header>
   );

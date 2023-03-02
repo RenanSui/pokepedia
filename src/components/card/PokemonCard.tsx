@@ -44,7 +44,7 @@ const PokemonCard = ({ pokemon }: IPokemonInfos) => {
       />
       <h1 className="mt-5 font-semibold capitalize">{pokemon.name}</h1>
       <p
-        className={`mt-5 font-light transition-all duration-700 md:mb-8 ${poppins.className}`}
+        className={`mb-5 font-light transition-all duration-700 md:mb-8 ${poppins.className}`}
       >
         {String(pokemon.id).padStart(3, '0')}
       </p>

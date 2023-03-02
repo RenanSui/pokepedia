@@ -54,7 +54,7 @@ const Header = () => {
       >
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
-          className="mx-3 bg-pokedex-200 text-xl text-custom-dark-blue-900"
+          className="mx-3 h-6 w-6 bg-pokedex-200 text-custom-dark-blue-900"
         />
         <input
           type="text"

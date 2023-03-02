@@ -1,5 +1,5 @@
+import LoadCSS from '@/src/utils/LoadCSS';
 import './globals.css';
-import { LoadCSS } from '@/src/utils';
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-pokedex-100">
         {children}
         <LoadCSS />
       </body>

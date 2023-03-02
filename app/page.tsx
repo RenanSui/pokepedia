@@ -1,11 +1,16 @@
+'use client';
+import PokemonProvider from '@/src/contexts/Pokemon/PokemonProvider';
+import Header from '@/src/layouts/header';
 import Main from '@/src/layouts/main/';
 
-const Home = async () => {
+const Home = () => {
   return (
-    <>
-      {/* @ts-expect-error Server Component */}
-      <Main />
-    </>
+    <PokemonProvider>
+      <>
+        <Header />
+        <Main />
+      </>
+    </PokemonProvider>
   );
 };
 

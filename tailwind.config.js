@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       colors: {
         'custom-dark-blue-900': '#3A3D62',
+        'pokedex-100': '#F5FBFB',
+        'pokedex-200': '#EBF3F5',
         pokeBug: '#ebf2b4',
         pokeDark: '#cdc6bf',
         pokeDragon: '#d4c3fd',
@@ -29,9 +31,6 @@ module.exports = {
         pokeSteel: '#eaeaf1',
         pokeUnkown: '#d3e7e2',
         pokeWater: '#d2defa',
-      },
-      fontFamily: {
-        poppins: ['Poppins'],
       },
     },
   },

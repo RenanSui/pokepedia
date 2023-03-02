@@ -1,78 +1,57 @@
-import { useEffect, useState } from 'react';
+import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
+import { Poppins } from 'next/font/google';
 import Image from 'next/image';
-import { CapitalizeFirstLetter } from '@/src/utils';
+
+const poppins = Poppins({
+  variable: '--font-poppins',
+  weight: ['300', '400', '500'],
+});
 
 interface IPokemonInfos {
-  id: number;
-  name: string;
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
-  sprites: {
-    other: {
-      'official-artwork': {
-        front_default: string;
+  pokemon: {
+    id: number;
+    name: string;
+    types: {
+      type: {
+        name: string;
+      };
+    }[];
+    sprites: {
+      other: {
+        'official-artwork': {
+          front_default: string;
+        };
       };
     };
   };
 }
 
-const initialPokemonState = {
-  id: 1,
-  name: 'bulbasaur',
-  types: [
-    {
-      type: {
-        name: 'grass',
-      },
-    },
-  ],
-  sprites: {
-    other: {
-      'official-artwork': {
-        front_default:
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
-      },
-    },
-  },
-};
-
-const PokemonCard = ({ pokemonName }: { pokemonName: string }) => {
-  const [pokemonInfos, setPokemonInfos] =
-    useState<IPokemonInfos>(initialPokemonState);
-  const URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`;
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      const response = await fetch(URL);
-      const pokemonData = await response.json();
-      setPokemonInfos(pokemonData);
-    };
-
-    fetchPokemon();
-  }, [URL]);
-
-  const pokemonType = CapitalizeFirstLetter(pokemonInfos.types[0].type.name);
+const PokemonCard = ({ pokemon }: IPokemonInfos) => {
+  const pokemonType = CapitalizeFirstLetter(pokemon.types[0].type.name);
   const pokemonTypeColor = `bg-poke${pokemonType}`;
 
-  //padStart(2, '0')
   return (
     <article
-      className={`flex w-[44%] max-w-[280px] flex-col items-center rounded-2xl p-4 font-poppins text-custom-dark-blue-900 sm:w-4/12 ${pokemonTypeColor}`}
+      className={`flex w-[43%] max-w-xs flex-col items-center rounded-2xl text-custom-dark-blue-900 transition-all duration-700 sm:w-3/12 ${pokemonTypeColor} ${poppins.className}`}
     >
       <Image
-        src={pokemonInfos.sprites.other['official-artwork'].front_default}
-        alt={pokemonInfos.name}
-        width={200}
+        src={pokemon.sprites.other['official-artwork'].front_default}
+        alt={pokemon.name}
+        width={120}
         height={140}
-        className=""
+        className="mt-5 h-auto w-auto transition-all duration-700"
+        priority={true}
       />
-      <h1 className="mt-5 font-semibold capitalize sm:mt-11">
-        {pokemonInfos.name}
-      </h1>
-      <p> {String(pokemonInfos.id).padStart(4, '0')}</p>
+      <h1 className="mt-5 font-semibold capitalize">{pokemon.name}</h1>
+      <p
+        className={`mt-5 font-light transition-all duration-700 md:mb-8 ${poppins.className}`}
+      >
+        {String(pokemon.id).padStart(3, '0')}
+      </p>
+      <p className="hidden text-[#F5FBFB]">Aoba</p>
+      <p className="hidden text-[#B6C6DE]">Aoba</p>
+      <p className="hidden text-[#D4C8D7]">Aoba</p>
+      <p className="hidden text-[#DCD7EE]">Aoba</p>
     </article>
   );
 };

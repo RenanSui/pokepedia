@@ -13,30 +13,32 @@ const poppins = Poppins({
 });
 
 const Header = () => {
-  const [pokemonSearchInput, setPokemonSearchInput] = useState<string>('');
   const { dispatch } = useContext(PokemonContext);
+  const [pokemonSearchInput, setPokemonSearchInput] = useState<string>('');
+  const pokemonName = pokemonSearchInput?.toLowerCase();
 
   const loadIndividualPokemon = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const pokemonName = pokemonSearchInput?.toLowerCase() || 'bulbasaur';
-    const URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
 
-    // just for type
-    const LIMIT_URL = `https://pokeapi.co/api/v2/pokemon?limit=1&offset=0`;
-    const response = await fetch(LIMIT_URL);
-    const pokemonsData = await response.json();
-    // just for type
-
-    const promisesArray = pokemonsData.results.map(() => axios.get(URL));
-    Promise.all(promisesArray).then((value) => {
-      dispatch({
-        type: 'renderIndividualPokemon',
-        payload: {
-          currentState: value as IPokemonDatas[],
-          oldState: [] as IPokemonDatas[],
-        },
+    if (pokemonSearchInput === '') {
+      console.log('vazio');
+    } else {
+      const pokemons_URL_Array = [
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`,
+      ];
+      const promisesArray = pokemons_URL_Array.map((link: string) =>
+        axios.get(link)
+      );
+      Promise.all(promisesArray).then((values) => {
+        dispatch({
+          type: 'renderIndividualPokemon',
+          payload: {
+            currentState: values as IPokemonDatas[],
+            oldState: [] as IPokemonDatas[],
+          },
+        });
       });
-    });
+    }
   };
 
   return (
@@ -50,16 +52,20 @@ const Header = () => {
       <form
         action=""
         onSubmit={loadIndividualPokemon}
-        className="group relative mx-4 mt-5 mb-6 flex items-center rounded-md bg-pokedex-200 p-2 py-3 transition-all duration-700"
+        className="relative mx-4 mt-5 mb-6 flex items-center rounded-md bg-pokedex-200  transition-all duration-700"
       >
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className="mx-3 h-6 w-6 bg-pokedex-200 text-custom-dark-blue-900"
-        />
+        {/* p-2 py-3 */}
+        <button type="submit">
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="h-6 w-6 cursor-pointer bg-pokedex-200 px-5 text-custom-dark-blue-900"
+          />
+        </button>
         <input
           type="text"
           id="pokemon"
-          className="rounded-md bg-pokedex-200 text-custom-dark-blue-900 outline-none"
+          name="pokemon"
+          className="peer w-full rounded-md bg-pokedex-200 py-4 text-custom-dark-blue-900 outline-none"
           autoComplete="off"
           onChange={(e) => {
             setPokemonSearchInput(e.target.value);
@@ -69,7 +75,11 @@ const Header = () => {
         />
         <label
           htmlFor="pokemon"
-          className="absolute left-14 top-3 z-10 transition-all duration-700 group-hover:-top-3 group-hover:left-10 group-hover:scale-75"
+          className={`absolute text-custom-dark-blue-900 transition-all duration-700  peer-focus:scale-75 ${
+            pokemonSearchInput
+              ? '-top-3 left-9 scale-75'
+              : 'top-4 left-16 z-10 cursor-text peer-focus:-top-3 peer-focus:left-9'
+          }`}
         >
           Name or number
         </label>

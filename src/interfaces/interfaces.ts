@@ -21,8 +21,6 @@ export interface IPokemonInfos {
   };
 }
 
-// export type IPokemonArray = IPokemonInfos[];
-
 export type IPokemonAction =
   | { type: 'renderPokemons'; payload: IPokemonStates }
   | { type: 'renderIndividualPokemon'; payload: IPokemonStates }

@@ -5,7 +5,6 @@ export const pokeReducer = (state: IPokemonStates, action: IPokemonAction) => {
     case 'renderPokemons':
       return {
         currentState: [...state.currentState, ...action.payload.currentState],
-        // ARRUMAR BUG
         oldState: [...state.currentState, ...action.payload.currentState],
       };
     case 'renderIndividualPokemon':

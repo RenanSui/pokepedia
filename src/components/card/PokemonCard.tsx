@@ -32,7 +32,7 @@ const PokemonCard = ({ pokemon }: IPokemonInfos) => {
 
   return (
     <article
-      className={`flex w-[43%] max-w-xs flex-col items-center rounded-2xl text-custom-dark-blue-900 transition-all duration-700 sm:w-3/12 ${pokemonTypeColor} ${poppins.className}`}
+      className={`flex w-[43%] max-w-xs cursor-pointer flex-col items-center rounded-2xl text-custom-dark-blue-900 transition-all duration-700 hover:z-50 hover:-rotate-6 hover:!scale-110 hover:shadow-lg group-hover:scale-95 sm:w-3/12 ${pokemonTypeColor} ${poppins.className}`}
     >
       <Image
         src={pokemon.sprites.other['official-artwork'].front_default}

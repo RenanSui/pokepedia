@@ -12,7 +12,14 @@ const PokemonList = () => {
 
   return (
     // /* @ts-expect-error Server Component */
-    <section className="flex flex-wrap justify-center gap-3" ref={SectionRef}>
+    <section
+      className="group flex flex-wrap justify-center gap-3"
+      ref={SectionRef}
+      aria-labelledby="pokemon-list-section"
+    >
+      <h1 className="hidden" id="pokemon-list-section">
+        Pokemon List
+      </h1>
       {Pokemon?.map((poke, i) => (
         <PokemonCard key={i} pokemon={poke.data} />
       ))}

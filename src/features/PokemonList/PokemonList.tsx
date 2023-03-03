@@ -13,7 +13,7 @@ const PokemonList = () => {
   return (
     // /* @ts-expect-error Server Component */
     <section
-      className="group flex flex-wrap justify-center gap-3"
+      className="group flex flex-wrap justify-center gap-3 transition-all duration-500"
       ref={SectionRef}
       aria-labelledby="pokemon-list-section"
     >

@@ -9,8 +9,8 @@ export const pokeReducer = (state: IPokemonStates, action: IPokemonAction) => {
       };
     case 'renderIndividualPokemon':
       return {
+        ...state,
         currentState: action.payload.currentState,
-        oldState: state.currentState,
       };
     case 'clearPokemons':
       return {

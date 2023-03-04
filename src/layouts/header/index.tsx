@@ -89,7 +89,7 @@ const Header = () => {
         onSubmit={loadIndividualPokemon}
         className={`relative mx-4 mt-5 mb-6 flex items-center rounded-md transition-all duration-700 ${inputErrorColor.bgColor}`}
       >
-        <button type="submit">
+        <button type="submit" title="Search">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className={`h-6 w-6 cursor-pointer px-5 ${inputErrorColor.bgColor} ${inputErrorColor.textColor} transition-all duration-700`}
@@ -140,6 +140,7 @@ const Header = () => {
             setPokemonSearchInput('');
             dispatch({ type: 'clearPokemons' });
           }}
+          title="Reset Pokédex"
         >
           <FontAwesomeIcon
             icon={faRotateBack}

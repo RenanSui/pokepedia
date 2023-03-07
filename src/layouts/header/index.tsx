@@ -5,9 +5,11 @@ import {
   faMagnifyingGlass,
   faRotateBack,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Poppins } from 'next/font/google';
 import axios from 'axios';
+import { ResetButton, SearchButton } from '@/src/components/button';
+import { SearchInput } from '@/src/components/Input';
+import { SearchLabel } from '@/src/components/Label';
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -16,15 +18,33 @@ const poppins = Poppins({
 
 const Header = () => {
   const { dispatch } = useContext(PokemonContext);
-  // 'bg-pokedex-200'
+  const [notFound, setNotFound] = useState(false);
+  const [pokemonSearchInput, setPokemonSearchInput] = useState<string>('');
+  const pokemonName = pokemonSearchInput?.toLowerCase();
   const [inputErrorColor, setInputErrorColor] = useState({
     bgColor: 'bg-pokedex-200',
     textColor: 'text-custom-dark-blue-900',
     textNeutralColor: 'text-neutral-400',
   });
-  const [notFound, setNotFound] = useState(false);
-  const [pokemonSearchInput, setPokemonSearchInput] = useState<string>('');
-  const pokemonName = pokemonSearchInput?.toLowerCase();
+  const ResetButtonProps = {
+    icon: faRotateBack,
+    inputErrorColor,
+    dispatch,
+    setPokemonSearchInput,
+  };
+  const SearchButtonProps = {
+    icon: faMagnifyingGlass,
+    inputErrorColor,
+  };
+  const SearchInputProps = {
+    inputErrorColor,
+    setPokemonSearchInput,
+    dispatch,
+    setInputErrorColor,
+    setNotFound,
+    pokemonSearchInput,
+  };
+  const SearchLabelProps = { inputErrorColor, pokemonSearchInput, notFound };
 
   const loadIndividualPokemon = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,22 +68,6 @@ const Header = () => {
           },
         });
         setNotFound(false);
-        // const pokemons_URL_Array = [
-        //   `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`,
-        // ];
-        // const promisesArray = pokemons_URL_Array.map((link: string) =>
-        //   axios.get(link)
-        // );
-        // console.log(promisesArray);
-        // Promise.all(promisesArray).then((values) => {
-        //   dispatch({
-        //     type: 'renderIndividualPokemon',
-        //     payload: {
-        //       currentState: values as IPokemonDatas[],
-        //       oldState: [] as IPokemonDatas[],
-        //     },
-        //   });
-        // });
       }
     } catch (error) {
       setNotFound(true);
@@ -77,78 +81,26 @@ const Header = () => {
   };
 
   return (
-    <header className={`m-auto max-w-[1350px] ${poppins.className}`}>
-      <h1 className="mx-4 mt-6 text-3xl font-extrabold text-custom-dark-blue-900">
-        <a href="/">Pokédex</a>
-      </h1>
-      <p className="mx-4 mt-2 text-sm font-normal text-custom-dark-blue-900">
-        Search for a Pokémon by name or using its National Pokédex number.
-      </p>
-      <form
-        action=""
-        onSubmit={loadIndividualPokemon}
-        className={`relative mx-4 mt-5 mb-6 flex items-center rounded-md transition-all duration-700 ${inputErrorColor.bgColor}`}
-      >
-        <button type="submit" title="Search">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className={`h-6 w-6 cursor-pointer px-5 ${inputErrorColor.bgColor} ${inputErrorColor.textColor} transition-all duration-700`}
-          />
-        </button>
-        <input
-          type="text"
-          id="pokemon"
-          name="pokemon"
-          className={`peer w-full rounded-md py-4 text-custom-dark-blue-900 outline-none transition-all duration-700 ${inputErrorColor.bgColor}`}
-          autoComplete="off"
-          onChange={(e) => {
-            const value = e.target.value;
-            setPokemonSearchInput(value);
-            value === '' && dispatch({ type: 'clearPokemons' });
-            value === '' &&
-              setInputErrorColor({
-                bgColor: 'bg-pokedex-200',
-                textColor: 'text-custom-dark-blue-900',
-                textNeutralColor: 'text-neutral-400',
-              });
-            value &&
-              setInputErrorColor({
-                bgColor: 'bg-pokedex-200',
-                textColor: 'text-custom-dark-blue-900',
-                textNeutralColor: 'text-neutral-400',
-              });
-            setNotFound(false);
-          }}
-          value={pokemonSearchInput}
-        />
-        <label
-          htmlFor="pokemon"
-          className={`pointer-events-none absolute transition-all duration-700 peer-focus:${
-            inputErrorColor.textColor
-          } ${
-            pokemonSearchInput
-              ? '-top-3 left-9 scale-75'
-              : 'top-4 left-16 z-10 cursor-text peer-focus:-top-3 peer-focus:left-9 peer-focus:scale-75'
-          } ${inputErrorColor.textNeutralColor}`}
+    <>
+      <header className={`m-auto max-w-[1350px] ${poppins.className}`}>
+        <h1 className="mx-4 mt-6 text-3xl font-extrabold text-custom-dark-blue-900">
+          <a href="/">Pokédex</a>
+        </h1>
+        <p className="mx-4 mt-2 text-sm font-normal text-custom-dark-blue-900">
+          Search for a Pokémon by name or using its National Pokédex number.
+        </p>
+        <form
+          action=""
+          onSubmit={loadIndividualPokemon}
+          className={`relative mx-4 mt-5 mb-6 flex items-center rounded-md transition-all duration-700 ${inputErrorColor.bgColor}`}
         >
-          {notFound ? 'Name or number Not Found' : 'Name or number'}
-        </label>
-        <button
-          type="reset"
-          className=""
-          onClick={() => {
-            setPokemonSearchInput('');
-            dispatch({ type: 'clearPokemons' });
-          }}
-          title="Reset Pokédex"
-        >
-          <FontAwesomeIcon
-            icon={faRotateBack}
-            className={`h-6 w-6 cursor-pointer px-5 ${inputErrorColor.bgColor} ${inputErrorColor.textColor} transition-all duration-700`}
-          />
-        </button>
-      </form>
-    </header>
+          <SearchButton props={SearchButtonProps} />
+          <SearchInput props={SearchInputProps} />
+          <SearchLabel props={SearchLabelProps} />
+        </form>
+        <ResetButton props={ResetButtonProps} />
+      </header>
+    </>
   );
 };
 

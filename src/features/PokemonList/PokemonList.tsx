@@ -1,8 +1,8 @@
-import { PokemonCard } from '@/src/components/card';
 import { PokemonContext } from '@/src/contexts/Pokemon/PokemonContext';
-import { useContext } from 'react';
-import { HandleScroll } from './handleScroll';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { PokemonCard } from '@/src/components/card';
+import { HandleScroll } from './handleScroll';
+import { useContext } from 'react';
 
 const PokemonList = () => {
   const { pokemonState } = useContext(PokemonContext);

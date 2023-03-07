@@ -1,7 +1,6 @@
-import React from 'react';
+'use client';
+export { default as SearchButton } from './SearchButton';
 
-const index = () => {
-  return <div>index</div>;
-};
+export { default as ResetButton } from './ResetButton';
 
-export default index;
+export { default as ReturnButton } from './ReturnButton';

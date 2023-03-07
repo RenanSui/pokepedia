@@ -1,9 +1,9 @@
-import { IPokemonStates } from '@/src/interfaces/interfaces';
+import { IPokemonStates } from '@/src/interfaces/pokemon';
 import { FC, useReducer } from 'react';
 import { PokemonContext } from './PokemonContext';
 import { pokeReducer } from './PokemonReducer';
 
-interface PokemonContextProps {
+interface PokemonProviderProps {
   children: JSX.Element | JSX.Element[];
 }
 
@@ -56,7 +56,7 @@ const initialPokemonState: IPokemonStates = {
   ],
 };
 
-const PokemonProvider: FC<PokemonContextProps> = ({ children }) => {
+const PokemonProvider: FC<PokemonProviderProps> = ({ children }) => {
   const [pokemonState, dispatch] = useReducer(pokeReducer, initialPokemonState);
 
   return (

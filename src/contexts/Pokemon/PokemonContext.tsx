@@ -1,4 +1,4 @@
-import { PokemonContextProps } from '@/src/interfaces/interfaces';
+import { PokemonContextProps } from '@/src/interfaces/pokemon';
 import { createContext } from 'react';
 
 export const PokemonContext = createContext<PokemonContextProps>(

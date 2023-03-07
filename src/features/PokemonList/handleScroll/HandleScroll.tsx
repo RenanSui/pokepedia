@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect } from 'react';
-import { IPokemonDatas } from '@/src/interfaces/interfaces';
+import { IPokemonDatas } from '@/src/interfaces/pokemon';
 import axios from 'axios';
 import { PokemonContext } from '@/src/contexts/Pokemon/PokemonContext';
 

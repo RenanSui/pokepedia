@@ -1,4 +1,4 @@
-import { IPokemonAction, IPokemonStates } from '@/src/interfaces/interfaces';
+import { IPokemonAction, IPokemonStates } from '@/src/interfaces/pokemon';
 
 export const pokeReducer = (state: IPokemonStates, action: IPokemonAction) => {
   switch (action.type) {

@@ -186,7 +186,7 @@ const PokemonModal = () => {
               </section>
             ) : (
               <section className="">
-                {Pokemon.stats.map((stat) => (
+                {Pokemon.stats.map((stat: any) => (
                   <p
                     className="mx-8 flex justify-evenly py-1"
                     key={stat.stat.name}

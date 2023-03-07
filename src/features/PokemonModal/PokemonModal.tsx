@@ -102,7 +102,7 @@ const PokemonModal = () => {
         : 'pointer-events-none animate-fadeOut opacity-0'
     }`}
         >
-          <header className="z-40 mt-4 mb-auto mr-auto sm:mb-[none] lg:mt-40 lg:ml-40 lg:rounded-xl lg:p-8 lg:backdrop-blur-xl">
+          <header className="z-40 mt-4 mb-auto mr-auto sm:mb-[none] lg:mt-12 lg:ml-12 lg:rounded-xl lg:p-8 lg:backdrop-blur-xl">
             <h1 className="ml-4 text-4xl font-black tracking-wide text-white drop-shadow-xl">
               {CapitalizeFirstLetter(Pokemon.name)}
             </h1>

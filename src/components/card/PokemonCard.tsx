@@ -25,7 +25,7 @@ const PokemonCard = ({ pokemon }: IPokemonIndividualInfos) => {
     document.body.classList.add('overflow-hidden');
   };
 
-  return (
+  return pokemon ? (
     <article
       className={`flex w-[43%] max-w-xs cursor-pointer flex-col items-center rounded-2xl text-custom-dark-blue-900 transition-all duration-700 hover:z-20 hover:-rotate-6 hover:!scale-110 hover:shadow-lg group-hover:scale-95 sm:w-3/12 ${pokemonTypeColor} ${poppins.className}`}
       onClick={handleOpenModal}
@@ -47,6 +47,8 @@ const PokemonCard = ({ pokemon }: IPokemonIndividualInfos) => {
         {String(pokemon.id).padStart(3, '0')}
       </p>
     </article>
+  ) : (
+    <div className="text-black">Loading...</div>
   );
 };
 

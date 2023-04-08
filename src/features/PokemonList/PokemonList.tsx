@@ -23,6 +23,7 @@ const PokemonList = () => {
       {Pokemon?.map((poke, i) => (
         <PokemonCard key={i} pokemon={poke.data} />
       ))}
+      {/* {Pokemon?.map((poke, i) => (poke ? '' : ''))} */}
     </section>
   );
 };

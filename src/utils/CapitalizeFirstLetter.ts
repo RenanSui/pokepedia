@@ -1,8 +1,9 @@
 const CapitalizeFirstLetter = (word: string) => {
   const firstLetter = word.charAt(0);
-  const firstLetterCap = firstLetter.toUpperCase();
+  const firstLetterCapitalized = firstLetter.toUpperCase();
+
   const remainingLetters = word.slice(1);
-  const capitalizedWord = firstLetterCap + remainingLetters;
+  const capitalizedWord = firstLetterCapitalized + remainingLetters;
 
   return capitalizedWord;
 };

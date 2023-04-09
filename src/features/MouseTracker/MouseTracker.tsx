@@ -27,12 +27,12 @@ const MouseTracker = () => {
 
 	return (
 		<div
-			className="pointer-events-none fixed -left-1/2 -top-1/2 z-[-2] aspect-[1] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b0383818] blur-sm transition-all duration-300"
+			className="pointer-events-none fixed -left-1/2 -top-1/2 z-[-3] aspect-[1] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b0383832] blur-sm transition-all duration-300"
 			ref={refContainer}
 		/>
 	);
 };
 
 // 51px
-
+// bg-[#b0383818]
 export default MouseTracker;

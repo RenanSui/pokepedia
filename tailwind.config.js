@@ -67,14 +67,18 @@ module.exports = {
 				shrinking: 'shrinking 3s ease-in-out',
 				fadeIn: 'fadeIn 3s ease-in-out',
 				fadeOut: 'fadeOut 1s ease-in-out',
+				loading: 'loading 1s ease-in-out infinite',
 			},
 			screens: {
 				xs: '414px',
 				...defaultTheme.screens,
 			},
 			keyframes: {
+				loading: {
+					'0%': { left: '-15rem' },
+					'100%': { left: '30rem' },
+				},
 				expanding: {
-					// TESTES
 					'0%': { transform: 'scale(0, 0)' },
 					'40%': { transform: 'scale(500, 500)' },
 				},

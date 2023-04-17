@@ -1,5 +1,6 @@
 import { mergeClass } from '@/src/utils/mergeClass';
 import { cva, VariantProps } from 'class-variance-authority';
+import Image from 'next/image';
 import { FC } from 'react';
 
 const ImageCardVariants = cva(
@@ -19,25 +20,21 @@ const ImageCardVariants = cva(
 	}
 );
 
-interface ImageCardProps
-	extends React.HTMLAttributes<HTMLDivElement>,
-		VariantProps<typeof ImageCardVariants> {
-	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
+interface ImageCardProps extends VariantProps<typeof ImageCardVariants> {
+	className: string;
+	src: string;
+	alt: string;
 }
 
-const ImageCard: FC<ImageCardProps> = ({
-	children,
-	className,
-	size,
-	...props
-}) => {
+const ImageCard: FC<ImageCardProps> = ({ className, size, src, alt }) => {
 	return (
-		<div
+		<Image
+			alt={alt}
+			src={src}
+			width={1024}
+			height={1024}
 			className={mergeClass(ImageCardVariants({ size, className }))}
-			{...props}
-		>
-			{children}
-		</div>
+		/>
 	);
 };
 

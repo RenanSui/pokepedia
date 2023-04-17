@@ -10,7 +10,7 @@ interface PokemonListProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 	const array20 = [];
-	const [pokeList, setPokeList] = useState();
+	const [pokeList, setPokeList] = useState<string[]>();
 
 	for (let i = 0; i < 20; i++) {
 		array20.push(i);
@@ -19,8 +19,13 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 	useEffect(() => {
 		const getPokemons = async () => {
 			const data = await axios.get('https://pokeapi.co/api/v2/pokemon');
-			console.log(data.data.results);
-			setPokeList(data.data.results);
+			const urls: string[] = data.data.results.map(
+				(item: { url: string }) => item.url
+			);
+			setTimeout(() => {
+				console.log('aoba');
+				setPokeList(urls);
+			}, 5000);
 		};
 		getPokemons();
 	}, []);
@@ -30,20 +35,30 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 			{...props}
 			className={`flex flex-wrap items-center justify-center gap-6 ${className}`}
 		>
-			{pokeList && (
-				<>
-					<PokemonCard />
-					<PokemonCard />
-					<PokemonCard />
-					<PokemonCard />
-				</>
-			)}
-			{!pokeList &&
-				array20.map((item, index) => {
-					return <CardSkeleton key={index} />;
-				})}
+			{pokeList
+				? pokeList.map((item, index) => {
+						return <PokemonCard url={item} key={index} />;
+				  })
+				: array20.map((item, index) => {
+						return <CardSkeleton key={index} />;
+				  })}
 		</section>
 	);
 };
 
 export default PokemonList;
+
+// return (
+// 	<section
+// 		{...props}
+// 		className={`flex flex-wrap items-center justify-center gap-6 ${className}`}
+// 	>
+// 		{pokeList
+// 			? pokeList.map((item, index) => {
+// 					return <PokemonCard url={item} key={index} />;
+// 			  })
+// 			: array20.map((item, index) => {
+// 					return <CardSkeleton key={index} />;
+// 			  })}
+// 	</section>
+// );

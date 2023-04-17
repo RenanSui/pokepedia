@@ -21,10 +21,10 @@ const Main: FC<indexProps> = ({ children, ...props }) => {
 					Search a Pokémon
 				</h1>
 
-				<input
+				{/* <input
 					type="text"
 					className={`h-[35px] w-[660px] rounded-full px-6 font-medium outline-none`}
-				/>
+				/> */}
 			</div>
 
 			<PokemonList></PokemonList>

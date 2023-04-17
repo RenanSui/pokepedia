@@ -1,7 +1,11 @@
+'use client';
 import { BackgroundCircles, BlurBackground } from '@/src/features/Background';
 import { MouseTracker } from '@/src/features/MouseTracker';
 import Header from '@/src/layouts/header';
 import Main from '@/src/layouts/main';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const Home = () => {
 	return (
@@ -10,7 +14,9 @@ const Home = () => {
 			<BackgroundCircles />
 			<MouseTracker />
 			<Header></Header>
-			<Main></Main>
+			<QueryClientProvider client={queryClient}>
+				<Main></Main>
+			</QueryClientProvider>
 		</>
 	);
 };

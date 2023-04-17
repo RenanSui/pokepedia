@@ -13,9 +13,9 @@ const Home = () => {
 			<BlurBackground />
 			<BackgroundCircles />
 			<MouseTracker />
-			<Header></Header>
+			<Header />
 			<QueryClientProvider client={queryClient}>
-				<Main></Main>
+				<Main />
 			</QueryClientProvider>
 		</>
 	);

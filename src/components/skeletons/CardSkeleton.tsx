@@ -5,7 +5,7 @@ import Paragraph from '../paragraph/Paragraph';
 
 const CardSkeleton = () => {
 	return (
-		<div className="mt-8 w-[250px]">
+		<div className="mt-4 w-[250px]">
 			<div className="relative h-[250px] w-[250px] cursor-pointer overflow-hidden rounded-lg bg-[#313338] shadow-xl">
 				<LoadingAnimation />
 				<div className="absolute bottom-0 left-0 right-0 top-0 backdrop-blur-[32px]" />

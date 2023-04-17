@@ -27,7 +27,7 @@ const Main: FC<indexProps> = ({ children, ...props }) => {
 				/> */}
 			</div>
 
-			<PokemonList></PokemonList>
+			<PokemonList />
 
 			{children}
 		</main>

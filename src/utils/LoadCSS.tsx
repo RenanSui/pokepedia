@@ -1,9 +1,7 @@
-import React from 'react';
-
 const LoadCSS = () => {
-  return (
-    <span className="hidden bg-pokeBug bg-pokeGrass bg-pokeDark bg-pokeDragon bg-pokeElectric bg-pokeFairy bg-pokeFighting bg-pokeFire bg-pokeFlying bg-pokeGhost bg-pokeGround bg-pokeIce bg-pokeNormal bg-pokePoison bg-pokePsychic bg-pokeRock bg-pokeShadow bg-pokeSteel bg-pokeUnkown bg-pokeWater bg-pokeBugDarken bg-pokeGrassDarken bg-pokeDarkDarken bg-pokeDragonDarken bg-pokeElectricDarken bg-pokeFairyDarken bg-pokeFightingDarken bg-pokeFireDarken bg-pokeFlyingDarken bg-pokeGhostDarken bg-pokeGroundDarken bg-pokeIceDarken bg-pokeNormalDarken bg-pokePoisonDarken bg-pokePsychicDarken bg-pokeRockDarken bg-pokeShadowDarken bg-pokeSteelDarken bg-pokeUnkownDarken bg-pokeWaterDarken" />
-  );
+	return (
+		<span className="hidden bg-pokeBug bg-pokeBugDarken bg-pokeDark bg-pokeDarkDarken bg-pokeDragon bg-pokeDragonDarken bg-pokeElectric bg-pokeElectricDarken bg-pokeFairy bg-pokeFairyDarken bg-pokeFighting bg-pokeFightingDarken bg-pokeFire bg-pokeFireDarken bg-pokeFlying bg-pokeFlyingDarken bg-pokeGhost bg-pokeGhostDarken bg-pokeGrass bg-pokeGrassDarken bg-pokeGround bg-pokeGroundDarken bg-pokeIce bg-pokeIceDarken bg-pokeNormal bg-pokeNormalDarken bg-pokePoison bg-pokePoisonDarken bg-pokePsychic bg-pokePsychicDarken bg-pokeRock bg-pokeRockDarken bg-pokeShadow bg-pokeShadowDarken bg-pokeSteel bg-pokeSteelDarken bg-pokeUnkown bg-pokeUnkownDarken bg-pokeWater bg-pokeWaterDarken" />
+	);
 };
 
 export default LoadCSS;

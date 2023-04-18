@@ -15,11 +15,11 @@ const Main: FC<indexProps> = ({ children, ...props }) => {
 	return (
 		<main {...props} className="m-auto w-full max-w-[1440px]">
 			<div className="flex flex-auto flex-col items-center justify-center gap-6 md:gap-12">
-				<h1
+				{/* <h1
 					className={`mt-16 text-5xl tracking-tight text-zinc-200 md:text-7xl ${playfair.className}`}
 				>
 					Search a Pokémon
-				</h1>
+				</h1> */}
 
 				{/* <input
 					type="text"

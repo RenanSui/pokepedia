@@ -4,7 +4,7 @@ import CardSkeleton from '@/src/components/skeletons/CardSkeleton';
 import axios from 'axios';
 import { FC } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import HandleScroll from './HandleScroll';
+import { HandleScroll } from './HandleScroll';
 
 interface PokemonListProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];

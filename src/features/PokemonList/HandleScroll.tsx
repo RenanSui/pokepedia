@@ -6,7 +6,7 @@ type FetchNextPage = () => Promise<
 	InfiniteQueryObserverResult<PokemonResult, unknown>
 >;
 
-const HandleScroll = (fetchNextPage: FetchNextPage) => {
+export const HandleScroll = (fetchNextPage: FetchNextPage) => {
 	const loadMorePokemon = useCallback(() => fetchNextPage(), [fetchNextPage]);
 
 	const handlePokemonScroll = useCallback(
@@ -25,5 +25,3 @@ const HandleScroll = (fetchNextPage: FetchNextPage) => {
 		return () => window.removeEventListener('scroll', handlePokemonScroll);
 	}, [handlePokemonScroll]);
 };
-
-export default HandleScroll;

@@ -2,7 +2,7 @@ import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Playfair_Display } from 'next/font/google';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { Icon } from '../Icons';
 import Heading from '../heading/Heading';
@@ -43,8 +43,6 @@ interface Pokemon {
 }
 
 const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
-	const [imageLoaded, setImageLoaded] = useState(false);
-
 	const { data: Pokemon, isFetching } = useQuery<Pokemon>({
 		queryKey: [url],
 		queryFn: async () => {

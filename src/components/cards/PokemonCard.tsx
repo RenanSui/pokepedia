@@ -82,8 +82,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 								<CardCircle
 									position={index as 0 | 1 | 2 | 3}
 									className={`
-									bg-poke${CapitalizeFirstLetter(type)}Darken
-									`}
+									bg-poke${CapitalizeFirstLetter(type)}`}
 									key={type}
 								/>
 							))}
@@ -131,7 +130,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 								pill
 								size={'xs'}
 								className={`
-								border-poke${CapitalizeFirstLetter(type)}Darken hover:bg-[#0f0f0f38]`}
+								border-poke${CapitalizeFirstLetter(type)} hover:bg-[#0f0f0f38]`}
 							>
 								{type}
 							</Paragraph>

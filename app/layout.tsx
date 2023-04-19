@@ -1,4 +1,3 @@
-import LoadCSS from '@/src/utils/LoadCSS';
 import './globals.css';
 
 export const metadata = {
@@ -22,10 +21,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className="bg-[#1F2628]">
-				{children}
-				<LoadCSS />
-			</body>
+			<body className="bg-[#1F2628]">{children}</body>
 		</html>
 	);
 }

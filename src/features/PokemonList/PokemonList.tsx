@@ -28,7 +28,6 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 	const fetchInfinitePokemons = async ({
 		pageParam = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20',
 	}) => {
-		console.log(pageParam);
 		const { data } = await axios.get<PokemonResult>(`${pageParam}`);
 		return data;
 	};

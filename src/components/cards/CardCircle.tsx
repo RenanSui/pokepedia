@@ -7,14 +7,22 @@ const CardCircleVariants = cva(
 	{
 		variants: {
 			position: {
-				top_right: '-top-[25%] -right-[25%]',
-				top_left: '-top-[25%] -left-[25%]',
-				bottom_right: '-bottom-[25%] -right-[25%]',
-				bottom_left: '-bottom-[25%] -left-[25%]',
+				0: '-top-[45%] -right-[45%]',
+				1: '-top-[45%] -left-[45%]',
+				2: '-bottom-[45%] -right-[45%]',
+				3: '-bottom-[45%] -left-[45%]',
+				// 0: '-top-[25%] -right-[25%]',
+				// 1: '-top-[25%] -left-[25%]',
+				// 2: '-bottom-[25%] -right-[25%]',
+				// 3: '-bottom-[25%] -left-[25%]',
+				// top_right: '-top-[25%] -right-[25%]',
+				// top_left: '-top-[25%] -left-[25%]',
+				// bottom_right: '-bottom-[25%] -right-[25%]',
+				// bottom_left: '-bottom-[25%] -left-[25%]',
 			},
 		},
 		defaultVariants: {
-			position: 'top_right',
+			position: 0,
 		},
 	}
 );

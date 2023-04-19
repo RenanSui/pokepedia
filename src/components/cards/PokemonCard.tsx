@@ -1,8 +1,12 @@
+import {
+	HandleFavorite,
+	getLocalStorage,
+} from '@/src/features/PokemonList/HandleFavorite';
 import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Playfair_Display } from 'next/font/google';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Icon } from '../Icons';
 import Heading from '../heading/Heading';
@@ -43,6 +47,7 @@ interface Pokemon {
 }
 
 const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
+	const [active, setActive] = useState(false);
 	const { data: Pokemon, isFetching } = useQuery<Pokemon>({
 		queryKey: [url],
 		queryFn: async () => {
@@ -61,6 +66,10 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 		? Pokemon?.types.map((item) => item.type.name)
 		: [''];
 
+	const isIdFavorited = getLocalStorage()
+		.map((Favorite) => Favorite.id)
+		.includes(Pokemon ? Pokemon.id : 0);
+
 	return (
 		<article {...props} className="mt-4 w-[250px]">
 			{isFetching && <CardSkeleton key={url} />}
@@ -68,14 +77,17 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 			{Pokemon && (
 				<>
 					<Card>
-						<CardCircle
-							position={'top_right'}
-							className="bg-[#4A7E65]"
-						/>
-						<CardCircle
-							position={'top_left'}
-							className="bg-[#7e4a4a]"
-						/>
+						<>
+							{PokemonTypes.map((type, index) => (
+								<CardCircle
+									position={index as 0 | 1 | 2 | 3}
+									className={`
+									bg-poke${CapitalizeFirstLetter(type)}Darken
+									`}
+									key={type}
+								/>
+							))}
+						</>
 						<BlurCard />
 						<ImageCard
 							src={sprite_url}
@@ -87,11 +99,29 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 
 					<div className="mx-1 mt-1 flex justify-between">
 						<Heading className={`${playfair.className}`}>
-							<span className="font-sans">#{Pokemon.id}</span>
+							<span
+								className={`font-sans transition-all duration-300 ${
+									isIdFavorited ? 'text-red-500' : ''
+								}`}
+							>
+								#{Pokemon.id}
+							</span>
 							{' - '}
 							{CapitalizeFirstLetter(Pokemon.name)}
 						</Heading>
-						<Icon icon={faHeart} className=" hover:text-red-300" />
+
+						<Icon
+							icon={faHeart}
+							className={`${
+								isIdFavorited
+									? 'text-red-500 hover:text-red-900'
+									: 'text-zinc-500 hover:text-red-300'
+							}`}
+							onClick={() => {
+								HandleFavorite(Pokemon.name, Pokemon.id);
+								setActive(!active);
+							}}
+						/>
 					</div>
 
 					<div className="mx-1 mt-1 flex items-center justify-start gap-1">
@@ -100,7 +130,8 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 								key={index}
 								pill
 								size={'xs'}
-								className="border-[#4A7E65] hover:bg-[#4a7e6538]"
+								className={`
+								border-poke${CapitalizeFirstLetter(type)}Darken hover:bg-[#0f0f0f38]`}
 							>
 								{type}
 							</Paragraph>

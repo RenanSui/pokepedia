@@ -1,44 +1,21 @@
+import { addLocalStorage } from '@/src/utils/LocalStorage/addLocalStorage';
+import { getLocalStorage } from '@/src/utils/LocalStorage/getLocalStorage';
+import { removeLocalStorage } from '@/src/utils/LocalStorage/removeLocalStorage';
+
 export interface Favorites {
 	name: string;
 	id: number;
 }
 
 export const HandleFavorite = (name: string, id: number) => {
-	const PokedexFavorites: Favorites[] = getLocalStorage();
+	const PokedexFavorites = getLocalStorage<Favorites[]>('PokedexFavorites');
 	const FavoriteIds = PokedexFavorites.map((Favorite) => Favorite.id);
 
+	const Pokemon = { name, id };
+
 	// ? Remove Favorite
-	if (FavoriteIds.includes(id)) removeFavorite(PokedexFavorites, id);
+	if (FavoriteIds.includes(id)) removeLocalStorage('PokedexFavorites', id);
 
 	// ? Add Favorite
-	if (!FavoriteIds.includes(id)) addFavorite(PokedexFavorites, id, name);
-};
-
-export const getLocalStorage = (): Favorites[] => {
-	// return the current list
-	const PokedexFavorites = localStorage.getItem('PokedexFavorites') || '';
-
-	return localStorage.getItem('PokedexFavorites')
-		? JSON.parse(PokedexFavorites)
-		: [];
-};
-
-export const removeFavorite = (PokedexFavorites: Favorites[], id: number) => {
-	const FavoriteIndex = PokedexFavorites.findIndex(
-		(Favorite) => Favorite.id === id
-	);
-	const newFavorite = [
-		...PokedexFavorites.slice(0, FavoriteIndex),
-		...PokedexFavorites.slice(FavoriteIndex + 1),
-	];
-	localStorage.setItem('PokedexFavorites', JSON.stringify(newFavorite));
-};
-
-export const addFavorite = (
-	PokedexFavorites: Favorites[],
-	id: number,
-	name: string
-) => {
-	const AddFavorite = JSON.stringify([...PokedexFavorites, { id, name }]);
-	localStorage.setItem('PokedexFavorites', AddFavorite);
+	if (!FavoriteIds.includes(id)) addLocalStorage('PokedexFavorites', Pokemon);
 };

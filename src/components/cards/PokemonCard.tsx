@@ -1,8 +1,9 @@
 import {
+	Favorites,
 	HandleFavorite,
-	getLocalStorage,
 } from '@/src/features/PokemonList/HandleFavorite';
 import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
+import { getLocalStorage } from '@/src/utils/LocalStorage/getLocalStorage';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Playfair_Display } from 'next/font/google';
@@ -25,6 +26,7 @@ const playfair = Playfair_Display({
 interface PokemonCardProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 	url: string;
+	name: string;
 }
 
 interface Pokemon {
@@ -46,10 +48,11 @@ interface Pokemon {
 	};
 }
 
-const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
+const PokemonCard: FC<PokemonCardProps> = ({ url, name, ...props }) => {
 	const [active, setActive] = useState(false);
+
 	const { data: Pokemon, isFetching } = useQuery<Pokemon>({
-		queryKey: [url],
+		queryKey: [name],
 		queryFn: async () => {
 			const { data } = await axios.get(url);
 			return data;
@@ -58,7 +61,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 		staleTime: 24 * 60 * 60 * 1000, // 24 hours
 	});
 
-	const sprite_url = Pokemon
+	const SpriteUrl = Pokemon
 		? Pokemon.sprites.other['official-artwork'].front_default
 		: '';
 
@@ -66,7 +69,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 		? Pokemon?.types.map((item) => item.type.name)
 		: [''];
 
-	const isIdFavorited = getLocalStorage()
+	const isIdFavorited = getLocalStorage<Favorites[]>('PokedexFavorites')
 		.map((Favorite) => Favorite.id)
 		.includes(Pokemon ? Pokemon.id : 0);
 
@@ -89,7 +92,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 						</>
 						<BlurCard />
 						<ImageCard
-							src={sprite_url}
+							src={SpriteUrl}
 							alt={Pokemon.name}
 							className="z-10"
 							draggable={false}
@@ -100,7 +103,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, ...props }) => {
 						<Heading className={`${playfair.className}`}>
 							<span
 								className={`font-sans transition-all duration-300 ${
-									isIdFavorited ? 'text-red-500' : ''
+									isIdFavorited ? 'text-red-300' : ''
 								}`}
 							>
 								#{Pokemon.id}

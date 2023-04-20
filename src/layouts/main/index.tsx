@@ -21,8 +21,11 @@ const Main: FC<indexProps> = ({ children, ...props }) => {
 					Search a Pokémon
 				</h1>
 
+				<label htmlFor="pokemon">Pokemon</label>
 				<input
 					type="text"
+					id="pokemon"
+					name="pokemon"
 					className={`h-[35px] w-[660px] rounded-full px-6 font-medium outline-none`}
 				/>
 			</div>

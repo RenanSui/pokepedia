@@ -44,6 +44,8 @@ const ImageCard: FC<ImageCardProps> = ({
 			width={220}
 			height={220}
 			draggable={draggable}
+			loading="eager"
+			priority={true}
 			className={mergeClass(ImageCardVariants({ size, className }))}
 			{...props}
 		/>

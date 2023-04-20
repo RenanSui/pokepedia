@@ -54,7 +54,11 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 			{PokemonList &&
 				PokemonList.pages.map((PokePage) =>
 					PokePage.results.map((result) => (
-						<PokemonCard url={result.url} key={result.name} />
+						<PokemonCard
+							name={result.name}
+							url={result.url}
+							key={result.name}
+						/>
 					))
 				)}
 

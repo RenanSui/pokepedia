@@ -1,9 +1,10 @@
 'use client';
-import { PokemonCard } from '@/src/components/cards';
 import CardSkeleton from '@/src/components/skeletons/CardSkeleton';
+import { ArrayMaker } from '@/src/utils/ArrayMaker';
 import axios from 'axios';
 import { FC } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import PokemonCard from '../PokemonCard/PokemonCard';
 import { HandleScroll } from './HandleScroll';
 
 interface PokemonListProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -51,6 +52,16 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 			{...props}
 			className={`flex flex-wrap items-center justify-center gap-6 ${className}`}
 		>
+			{/* {PokemonList &&
+				PokemonList.pages.map((PokePage) =>
+					PokePage.results.map((result) => (
+						<PokemonCard
+							name={result.name}
+							url={result.url}
+							key={result.name}
+						/>
+					))
+				)} */}
 			{PokemonList &&
 				PokemonList.pages.map((PokePage) =>
 					PokePage.results.map((result) => (
@@ -69,9 +80,3 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 };
 
 export default PokemonList;
-
-export const ArrayMaker = (quantity: number) => {
-	const array = [];
-	for (let i = 0; i < quantity; i++) array.push(i);
-	return array;
-};

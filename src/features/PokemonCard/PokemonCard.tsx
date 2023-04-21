@@ -2,33 +2,15 @@ import CardSkeleton from '@/src/components/skeletons/CardSkeleton';
 import axios from 'axios';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
-import PokemonImage from './PokemonImage';
-import PokemonInfo from './PokemonInfo';
-import PokemonPills from './PokemonPills';
+import { Images } from './Images';
+import { Infos } from './Infos';
+import { Pills } from './Pills';
+import { Pokemon } from './types';
 
 interface PokemonCardProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 	url: string;
 	name: string;
-}
-
-export interface Pokemon {
-	name: string;
-	id: number;
-	types: [
-		{
-			type: {
-				name: string;
-			};
-		}
-	];
-	sprites: {
-		other: {
-			'official-artwork': {
-				front_default: string;
-			};
-		};
-	};
 }
 
 const PokemonCard: FC<PokemonCardProps> = ({ url, name, ...props }) => {
@@ -48,11 +30,9 @@ const PokemonCard: FC<PokemonCardProps> = ({ url, name, ...props }) => {
 
 			{Pokemon && (
 				<>
-					<div className="relative h-[250px] w-[250px] cursor-pointer overflow-hidden rounded-lg bg-[#313338] shadow-xl">
-						<PokemonImage Pokemon={Pokemon} />
-					</div>
-					<PokemonInfo Pokemon={Pokemon} />
-					<PokemonPills Pokemon={Pokemon} />
+					<Images Pokemon={Pokemon} />
+					<Infos Pokemon={Pokemon} />
+					<Pills Pokemon={Pokemon} />
 				</>
 			)}
 		</article>

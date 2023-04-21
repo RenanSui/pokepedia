@@ -4,7 +4,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 }
 
-const Card: FC<CardProps> = ({ children, ...props }) => {
+export const Card: FC<CardProps> = ({ children, ...props }) => {
 	return (
 		<div
 			{...props}
@@ -14,5 +14,3 @@ const Card: FC<CardProps> = ({ children, ...props }) => {
 		</div>
 	);
 };
-
-export default Card;

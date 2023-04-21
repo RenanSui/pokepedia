@@ -7,11 +7,11 @@ import { useInfiniteQuery } from 'react-query';
 import PokemonCard from '../PokemonCard/PokemonCard';
 import { HandleScroll } from './HandleScroll';
 
-interface PokemonListProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PokedexListProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 }
 
-export interface PokemonResult {
+export interface PokedexResult {
 	count: number;
 	next: string;
 	previous: string;
@@ -23,22 +23,22 @@ export interface PokemonResult {
 	];
 }
 
-const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
+const PokedexList: FC<PokedexListProps> = ({ className, ...props }) => {
 	const LoadingArray = ArrayMaker(20);
 
 	const fetchInfinitePokemons = async ({
 		pageParam = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20',
 	}) => {
-		const { data } = await axios.get<PokemonResult>(`${pageParam}`);
+		const { data } = await axios.get<PokedexResult>(`${pageParam}`);
 		return data;
 	};
 
 	const {
-		data: PokemonList,
+		data: PokedexList,
 		isFetching,
 		fetchNextPage,
 	} = useInfiniteQuery({
-		queryKey: ['PokemonList'],
+		queryKey: ['PokedexList'],
 		queryFn: fetchInfinitePokemons,
 		refetchOnWindowFocus: false,
 		staleTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -52,18 +52,13 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 			{...props}
 			className={`flex flex-wrap items-center justify-center gap-6 ${className}`}
 		>
-			{/* {PokemonList &&
-				PokemonList.pages.map((PokePage) =>
-					PokePage.results.map((result) => (
-						<PokemonCard
-							name={result.name}
-							url={result.url}
-							key={result.name}
-						/>
-					))
-				)} */}
-			{PokemonList &&
-				PokemonList.pages.map((PokePage) =>
+			<h1 className="hidden">Pokemon List</h1>
+
+			{isFetching &&
+				LoadingArray.map((index) => <CardSkeleton key={index} />)}
+
+			{PokedexList &&
+				PokedexList.pages.map((PokePage) =>
 					PokePage.results.map((result) => (
 						<PokemonCard
 							name={result.name}
@@ -72,11 +67,8 @@ const PokemonList: FC<PokemonListProps> = ({ className, ...props }) => {
 						/>
 					))
 				)}
-
-			{isFetching &&
-				LoadingArray.map((index) => <CardSkeleton key={index} />)}
 		</section>
 	);
 };
 
-export default PokemonList;
+export default PokedexList;

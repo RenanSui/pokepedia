@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-interface BlurCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardBlurProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 }
 
-const BlurCard: FC<BlurCardProps> = ({ className, ...props }) => {
+export const CardBlur: FC<CardBlurProps> = ({ className, ...props }) => {
 	return (
 		<div
 			{...props}
@@ -12,5 +12,3 @@ const BlurCard: FC<BlurCardProps> = ({ className, ...props }) => {
 		/>
 	);
 };
-
-export default BlurCard;

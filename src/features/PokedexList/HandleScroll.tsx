@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from 'react';
 import { InfiniteQueryObserverResult } from 'react-query/types/core/types';
-import { PokemonResult } from './PokemonList';
+import { PokedexResult } from './PokedexList';
 
 type FetchNextPage = () => Promise<
-	InfiniteQueryObserverResult<PokemonResult, unknown>
+	InfiniteQueryObserverResult<PokedexResult, unknown>
 >;
 
 export const HandleScroll = (fetchNextPage: FetchNextPage) => {

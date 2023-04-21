@@ -1,4 +1,4 @@
-import { PokemonList } from '@/src/features/PokemonList';
+import PokedexList from '@/src/features/PokedexList/PokedexList';
 import { Playfair_Display } from 'next/font/google';
 import { FC } from 'react';
 
@@ -30,7 +30,7 @@ const Main: FC<indexProps> = ({ children, ...props }) => {
 				/>
 			</div>
 
-			<PokemonList />
+			<PokedexList />
 
 			{children}
 		</main>

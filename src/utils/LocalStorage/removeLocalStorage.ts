@@ -1,9 +1,6 @@
-import { getLocalStorage } from './getLocalStorage';
+import { getLocalStorage, StorageKey } from './getLocalStorage';
 
-export const removeLocalStorage = (
-	StorageKey: 'PokedexFavorites',
-	id: number
-) => {
+export const removeLocalStorage = (StorageKey: StorageKey, id: number) => {
 	const LocalStorageData = getLocalStorage(StorageKey) as [{ id: number }];
 	const ItemIndex = LocalStorageData.findIndex((item) => item.id === id);
 	const newFavorite = [

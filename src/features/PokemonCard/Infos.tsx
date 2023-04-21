@@ -3,13 +3,13 @@ import Heading from '@/src/components/heading/Heading';
 import {
 	Favorites,
 	HandleFavorite,
-} from '@/src/features/PokemonList/HandleFavorite';
+} from '@/src/features/PokemonCard/HandleFavorite';
 import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
 import { getLocalStorage } from '@/src/utils/LocalStorage/getLocalStorage';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Playfair_Display } from 'next/font/google';
 import { FC, useState } from 'react';
-import { Pokemon } from './PokemonCard';
+import { Pokemon } from './types';
 
 const playfair = Playfair_Display({
 	variable: '--playfair-font',
@@ -21,7 +21,7 @@ interface CardInfoProps extends React.HTMLAttributes<HTMLDivElement> {
 	Pokemon: Pokemon;
 }
 
-const PokemonInfo: FC<CardInfoProps> = ({ Pokemon }) => {
+export const Infos: FC<CardInfoProps> = ({ Pokemon }) => {
 	const [active, setActive] = useState(false);
 
 	const isIdFavorited = getLocalStorage<Favorites[]>('PokedexFavorites')
@@ -31,14 +31,10 @@ const PokemonInfo: FC<CardInfoProps> = ({ Pokemon }) => {
 	return (
 		<div className="mx-1 mt-1 flex justify-between">
 			<Heading className={`${playfair.className}`}>
-				<span
-					className={`font-sans transition-all duration-300 ${
-						isIdFavorited ? 'text-red-300' : ''
-					}`}
-				>
+				<span className={`font-sans transition-all duration-300`}>
 					#{Pokemon.id}
+					{' - '}
 				</span>
-				{' - '}
 				{CapitalizeFirstLetter(Pokemon.name)}
 			</Heading>
 
@@ -58,4 +54,4 @@ const PokemonInfo: FC<CardInfoProps> = ({ Pokemon }) => {
 	);
 };
 
-export default PokemonInfo;
+// ${isIdFavorited ? 'text-red-300' : ''}

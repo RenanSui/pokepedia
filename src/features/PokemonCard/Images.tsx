@@ -1,16 +1,17 @@
-import BlurCard from '@/src/components/cards/BlurCard';
+import { Card } from '@/src/components/cards/Card';
+import { CardBlur } from '@/src/components/cards/CardBlur';
 import { CardCircle } from '@/src/components/cards/CardCircle';
-import { ImageCard } from '@/src/components/cards/ImageCard';
+import { CardImage } from '@/src/components/cards/CardImage';
 import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
 import { FC } from 'react';
-import { Pokemon } from './PokemonCard';
+import { Pokemon } from './types';
 
-interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ImagesProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 	Pokemon: Pokemon;
 }
 
-const PokemonImage: FC<CardImageProps> = ({ children, Pokemon }) => {
+export const Images: FC<ImagesProps> = ({ Pokemon }) => {
 	const SpriteUrl = Pokemon
 		? Pokemon.sprites.other['official-artwork'].front_default
 		: '';
@@ -20,7 +21,7 @@ const PokemonImage: FC<CardImageProps> = ({ children, Pokemon }) => {
 		: [''];
 
 	return (
-		<>
+		<Card>
 			<>
 				{PokemonTypes.map((type, index) => (
 					<CardCircle
@@ -30,16 +31,13 @@ const PokemonImage: FC<CardImageProps> = ({ children, Pokemon }) => {
 					/>
 				))}
 			</>
-			<BlurCard />
-			<ImageCard
+			<CardBlur />
+			<CardImage
 				src={SpriteUrl}
 				alt={Pokemon.name}
 				className="z-10"
 				draggable={false}
 			/>
-			{children}
-		</>
+		</Card>
 	);
 };
-
-export default PokemonImage;

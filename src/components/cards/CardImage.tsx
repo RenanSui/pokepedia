@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Image, { ImageProps } from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 
-const ImageCardVariants = cva(
+const CardImageVariants = cva(
 	'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-cover',
 	{
 		variants: {
@@ -20,16 +20,16 @@ const ImageCardVariants = cva(
 	}
 );
 
-interface ImageCardProps
+interface CardImageProps
 	extends ImageProps,
-		VariantProps<typeof ImageCardVariants> {
+		VariantProps<typeof CardImageVariants> {
 	className: string;
 	src: string;
 	alt: string;
 	setImageLoaded?: Dispatch<SetStateAction<boolean>>;
 }
 
-const ImageCard: FC<ImageCardProps> = ({
+const CardImage: FC<CardImageProps> = ({
 	className,
 	size,
 	src,
@@ -46,10 +46,10 @@ const ImageCard: FC<ImageCardProps> = ({
 			draggable={draggable}
 			loading="eager"
 			priority={true}
-			className={mergeClass(ImageCardVariants({ size, className }))}
+			className={mergeClass(CardImageVariants({ size, className }))}
 			{...props}
 		/>
 	);
 };
 
-export { ImageCard, ImageCardVariants };
+export { CardImage, CardImageVariants };

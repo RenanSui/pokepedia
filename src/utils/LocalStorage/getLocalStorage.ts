@@ -1,4 +1,4 @@
-export type StorageKey = 'PokedexFavorites';
+export type StorageKey = 'PokedexFavorites' | '';
 
 export const getLocalStorage = <T>(StorageKey: StorageKey): T => {
 	// ? return the current list

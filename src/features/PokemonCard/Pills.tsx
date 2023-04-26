@@ -1,7 +1,7 @@
-import Paragraph from '@/src/components/paragraph/Paragraph';
 import CapitalizeFirstLetter from '@/src/utils/CapitalizeFirstLetter';
 import { FC } from 'react';
 import { Pokemon } from './types';
+import { Pill } from '@/src/components/Pill/Pill';
 
 interface PillsProps extends React.HTMLAttributes<HTMLDivElement> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
@@ -16,7 +16,7 @@ export const Pills: FC<PillsProps> = ({ Pokemon }) => {
 	return (
 		<div className="mx-1 mt-1 flex items-center justify-start gap-1">
 			{PokemonTypes.map((type, index) => (
-				<Paragraph
+				<Pill
 					key={index}
 					pill
 					size={'xs'}
@@ -25,8 +25,8 @@ export const Pills: FC<PillsProps> = ({ Pokemon }) => {
 						type
 					)} hover:bg-[#0f0f0f38]`}
 				>
-					{type}
-				</Paragraph>
+					{CapitalizeFirstLetter(type)}
+				</Pill>
 			))}
 		</div>
 	);

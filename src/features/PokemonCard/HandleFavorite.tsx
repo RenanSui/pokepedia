@@ -1,5 +1,5 @@
+import { useGetLocal } from '@/src/hooks/useGetLocal';
 import { addLocalStorage } from '@/src/utils/LocalStorage/addLocalStorage';
-import { getLocalStorage } from '@/src/utils/LocalStorage/getLocalStorage';
 import { removeLocalStorage } from '@/src/utils/LocalStorage/removeLocalStorage';
 
 export interface Favorites {
@@ -8,7 +8,7 @@ export interface Favorites {
 }
 
 export const HandleFavorite = (name: string, id: number) => {
-	const PokedexFavorites = getLocalStorage<Favorites[]>('PokedexFavorites');
+	const PokedexFavorites = useGetLocal<Favorites[]>('PokedexFavorites');
 	const FavoriteIds = PokedexFavorites.map((Favorite) => Favorite.id);
 
 	const Pokemon = { name, id };

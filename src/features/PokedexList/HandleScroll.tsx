@@ -1,6 +1,6 @@
+import { PokedexResult } from '@/src/hooks/useFetchPokedex';
 import { useCallback, useEffect } from 'react';
 import { InfiniteQueryObserverResult } from 'react-query/types/core/types';
-import { PokedexResult } from './PokedexList';
 
 type FetchNextPage = () => Promise<
 	InfiniteQueryObserverResult<PokedexResult, unknown>

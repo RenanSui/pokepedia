@@ -4,6 +4,8 @@ const LoadingAnimation = () => {
 	);
 };
 
+console.log('Aoba');
+
 // bg-zinc-700
 // linear-gradient(90deg,_rgba(0,0,0,0)_0%,_rgba(63,63,70,1)_50%,_rgba(0,0,0,0)_100%)
 

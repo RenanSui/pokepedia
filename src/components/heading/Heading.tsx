@@ -1,9 +1,15 @@
 import { mergeClass } from '@/src/utils/mergeClass';
 import { VariantProps, cva } from 'class-variance-authority';
+import { Playfair_Display } from 'next/font/google';
 import { FC } from 'react';
 
+const playfair = Playfair_Display({
+	variable: '--playfair-font',
+	subsets: ['latin'],
+});
+
 const headingVariants = cva(
-	'transition-all duration-300 tracking-widest cursor-default',
+	`transition-all duration-300 tracking-widest cursor-default ${playfair.className}`,
 	{
 		variants: {
 			variant: {
@@ -11,6 +17,7 @@ const headingVariants = cva(
 			},
 			size: {
 				default: 'text-base',
+				large: 'text-5xl md:text-7xl tracking-tight',
 			},
 		},
 

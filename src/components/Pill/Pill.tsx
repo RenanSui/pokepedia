@@ -8,16 +8,16 @@ const playfair = Playfair_Display({
 	subsets: ['latin'],
 });
 
-const paragraphVariants = cva('tracking-widest', {
+const PillsVariants = cva('tracking-widest font-semibold', {
 	variants: {
 		variant: {
 			default: 'text-zinc-300',
 		},
 		pill: {
-			true: 'px-3 py-[2px] cursor-pointer rounded-full border',
+			true: 'px-4 py-[3px] cursor-pointer rounded-full border',
 		},
 		size: {
-			default: 'text-sm',
+			default: 'text-normal',
 			xs: 'text-xs',
 		},
 	},
@@ -27,13 +27,13 @@ const paragraphVariants = cva('tracking-widest', {
 	},
 });
 
-interface ParagraphProps
+interface PillsProps
 	extends React.HTMLAttributes<HTMLParagraphElement>,
-		VariantProps<typeof paragraphVariants> {
+		VariantProps<typeof PillsVariants> {
 	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
 }
 
-const Paragraph: FC<ParagraphProps> = ({
+export const Pill: FC<PillsProps> = ({
 	children,
 	className,
 	size,
@@ -45,12 +45,10 @@ const Paragraph: FC<ParagraphProps> = ({
 		<p
 			{...props}
 			className={`${mergeClass(
-				paragraphVariants({ variant, size, pill, className })
+				PillsVariants({ variant, size, pill, className })
 			)} ${playfair.className}`}
 		>
 			{children}
 		</p>
 	);
 };
-
-export default Paragraph;

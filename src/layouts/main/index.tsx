@@ -1,32 +1,32 @@
-import Heading from '@/src/components/heading/Heading';
-import PokedexList from '@/src/features/PokedexList/PokedexList';
-import { FC } from 'react';
+import { Heading } from '@/components/heading/Heading'
+import PokedexList from '@/features/PokedexList/PokedexList'
+import { FC, HTMLAttributes, JSX } from 'react'
 
-interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
-	children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[];
+interface MainProps extends HTMLAttributes<HTMLDivElement> {
+  children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[]
 }
 
 const Main: FC<MainProps> = ({ children, ...props }) => {
-	return (
-		<main {...props} className="m-auto w-full max-w-[1440px]">
-			<div className="flex flex-auto flex-col items-center justify-center gap-6 md:gap-12">
-				<Heading size={'large'}>Search a Pokémon</Heading>
+  return (
+    <main {...props} className="m-auto w-full max-w-[1440px]">
+      <div className="flex flex-auto flex-col items-center justify-center gap-6 md:gap-12">
+        <Heading size={'large'}>Search a Pokémon</Heading>
 
-				<label htmlFor="pokemon">Pokemon</label>
+        <label htmlFor="pokemon">Pokemon</label>
 
-				<input
-					type="text"
-					id="pokemon"
-					name="pokemon"
-					className={`h-[35px] w-[660px] rounded-full px-6 font-medium outline-none`}
-				/>
-			</div>
+        <input
+          type="text"
+          id="pokemon"
+          name="pokemon"
+          className={`h-[35px] w-[660px] rounded-full px-6 font-medium outline-none`}
+        />
+      </div>
 
-			<PokedexList />
+      <PokedexList />
 
-			{children}
-		</main>
-	);
-};
+      {children}
+    </main>
+  )
+}
 
-export default Main;
+export default Main

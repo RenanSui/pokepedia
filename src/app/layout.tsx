@@ -1,3 +1,5 @@
+import { ReactQueryProvider } from '@/components/react-query-provider'
+import { SiteBackground } from '@/components/site-background'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
 
@@ -18,7 +20,12 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-[#1F2628]">{children}</body>
+      <body className="bg-[#1F2628]">
+        <ReactQueryProvider>
+          <SiteBackground />
+          {children}
+        </ReactQueryProvider>
+      </body>
     </html>
   )
 }

@@ -1,20 +1,16 @@
 'use client'
 import { PokemonCard } from '@/components/pokemon-card'
-import { useFetchAllPokedex } from '@/hooks/use-fetch-all-pokedex'
+import { useFetchAllPokemon } from '@/hooks/use-fetch-all-pokemon'
 import { ArrayMaker } from '@/lib/utils'
 import { FC, HTMLAttributes, JSX, useCallback, useEffect } from 'react'
 import { PokemonSkeleton } from './pokemon-skeleton'
-
-// type FetchNextPage = () => Promise<
-//   InfiniteQueryObserverResult<PokedexResult, unknown>
-// >
 
 interface PokedexListProps extends HTMLAttributes<HTMLDivElement> {
   children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[]
 }
 
-const PokedexList: FC<PokedexListProps> = ({ className }) => {
-  const { data: PokedexList, isFetching, fetchNextPage } = useFetchAllPokedex()
+const PokemonList: FC<PokedexListProps> = ({ className }) => {
+  const { data: PokedexList, isFetching, fetchNextPage } = useFetchAllPokemon()
   const loadMorePokemon = useCallback(() => fetchNextPage(), [fetchNextPage])
   const Array20 = ArrayMaker(20)
 
@@ -52,4 +48,4 @@ const PokedexList: FC<PokedexListProps> = ({ className }) => {
   )
 }
 
-export { PokedexList }
+export { PokemonList }

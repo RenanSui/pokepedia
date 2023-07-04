@@ -15,10 +15,14 @@ import {
 } from '@/components/ui/card'
 import { useFetchPokemon } from '@/hooks/use-fetch-pokemon'
 import { CapitalizeFirstLetter } from '@/lib/utils'
-import { PokemonCardProps, PokemonFavorites } from '@/types'
+import { PokemonFavorites } from '@/types'
 import Image from 'next/image'
-import { useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import { PokemonSkeleton } from './pokemon-skeleton'
+
+export interface PokemonCardProps extends HTMLAttributes<HTMLDivElement> {
+  pokemon: { name: string; url: string }
+}
 
 const PokemonCard = ({ pokemon, ...props }: PokemonCardProps) => {
   const { url, name } = pokemon

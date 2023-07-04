@@ -1,3 +1,4 @@
+import { PokemonSchema } from '@/types'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 
@@ -20,20 +21,8 @@ export interface Pokemon {
   }
 }
 
-export interface PokedexResult {
-  count: number
-  next: string
-  previous: string
-  results: [
-    {
-      name: string
-      url: string
-    },
-  ]
-}
-
 export const useFetchPokemon = (url: string, name: string) => {
-  return useQuery<Pokemon>({
+  return useQuery<PokemonSchema>({
     queryKey: [name],
     queryFn: async () => {
       const { data } = await axios.get(url)

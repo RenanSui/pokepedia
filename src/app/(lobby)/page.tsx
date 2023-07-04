@@ -1,11 +1,11 @@
-import { PokedexList } from '@/components/pokemon-list'
+import { PokemonList } from '@/components/pokemon-list'
 
 const Home = () => {
   return (
     <>
       <header></header>
       <main>
-        <PokedexList />
+        <PokemonList />
       </main>
       <footer></footer>
     </>

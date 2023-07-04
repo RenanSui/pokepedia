@@ -1,17 +1,37 @@
-import { HTMLAttributes } from 'react'
-
 export type StorageKey = 'PokedexFavorites' | ''
-
-export interface PokemonSchema {
-  name: string
-  url: string
-}
-
-export interface PokemonCardProps extends HTMLAttributes<HTMLDivElement> {
-  pokemon: PokemonSchema
-}
 
 export interface PokemonFavorites {
   name: string
   id: number
+}
+
+export interface PokedexSchema {
+  count: number
+  next: string
+  previous: string
+  results: [
+    {
+      name: string
+      url: string
+    },
+  ]
+}
+
+export interface PokemonSchema {
+  name: string
+  id: number
+  types: [
+    {
+      type: {
+        name: string
+      }
+    },
+  ]
+  sprites: {
+    other: {
+      'official-artwork': {
+        front_default: string
+      }
+    }
+  }
 }

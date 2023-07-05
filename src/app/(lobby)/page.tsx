@@ -1,15 +1,15 @@
 import { PokemonList } from '@/components/pokemon-list'
 
 const Home = () => {
-  return (
-    <>
-      <header></header>
-      <main>
-        <PokemonList />
-      </main>
-      <footer></footer>
-    </>
-  )
+	return (
+		<>
+			<header></header>
+			<main>
+				<PokemonList />
+			</main>
+			<footer></footer>
+		</>
+	)
 }
 
 export default Home

@@ -1,8 +1,8 @@
 import {
-	Heart,
-	Maximize,
-	Minimize,
-	type Icon as LucideIcon,
+  Heart,
+  Maximize,
+  Minimize,
+  type Icon as LucideIcon,
 } from 'lucide-react'
 
 export type Icon = LucideIcon

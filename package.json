@@ -25,6 +25,7 @@
 	},
 	"devDependencies": {
 		"@rocketseat/eslint-config": "^1.2.0",
+		"@total-typescript/ts-reset": "^0.5.1",
 		"@types/node": "20.3.1",
 		"@types/react": "18.2.13",
 		"@types/react-dom": "18.2.6",

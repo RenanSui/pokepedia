@@ -1,0 +1,17 @@
+services:
+  app:
+    image: openai-demo-app
+    build:
+      context: ./
+      target: production
+      dockerfile: Dockerfile
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"

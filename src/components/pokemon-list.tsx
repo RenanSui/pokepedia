@@ -1,7 +1,6 @@
 'use client'
 import { PokemonCard } from '@/components/pokemon-card'
 import { useFetchAllPokemon } from '@/hooks/use-fetch-all-pokemon'
-import { ArrayMaker } from '@/lib/utils'
 import { FC, HTMLAttributes, JSX, useCallback, useEffect } from 'react'
 import { PokemonSkeleton } from './pokemon-skeleton'
 
@@ -10,9 +9,8 @@ interface PokedexListProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const PokemonList: FC<PokedexListProps> = ({ className }) => {
-  const { data: PokedexList, isFetching, fetchNextPage } = useFetchAllPokemon()
+  const { data: PokedexList, fetchNextPage } = useFetchAllPokemon()
   const loadMorePokemon = useCallback(() => fetchNextPage(), [fetchNextPage])
-  const Array20 = ArrayMaker(20)
 
   const handlePokemonScroll = useCallback(
     (e: Event) => {
@@ -36,7 +34,9 @@ const PokemonList: FC<PokedexListProps> = ({ className }) => {
     >
       <h1 className="hidden">Pokemon List</h1>
 
-      {isFetching && Array20.map((index) => <PokemonSkeleton key={index} />)}
+      {Array.from({ length: 20 }).map((_, index) => (
+        <PokemonSkeleton key={index} />
+      ))}
 
       {PokedexList &&
         PokedexList.pages.map((PokePage) =>

@@ -1,7 +1,5 @@
-import { ReactQueryProvider } from '@/components/react-query-provider'
-import { SiteBackground } from '@/components/site-background'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
-import { ReactNode } from 'react'
+import * as React from 'react'
 import '../styles/globals.css'
 
 export const metadata = {
@@ -18,15 +16,17 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#1F2628]">
-        <ReactQueryProvider>
-          <SiteBackground />
-          {children}
-          <TailwindIndicator />
-        </ReactQueryProvider>
+      <body className='bg-black min-h-screen'>
+        <p className='text-center font-light bg-white p-1'>Welcome to my Pokédex</p>
+        {children}
+        <TailwindIndicator />
       </body>
     </html>
   )

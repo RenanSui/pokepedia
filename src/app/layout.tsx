@@ -1,3 +1,4 @@
+import { Providers } from '@/components/providers/providers'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import * as React from 'react'
 import '../styles/globals.css'
@@ -23,9 +24,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className='bg-black min-h-screen'>
-        <p className='text-center font-light bg-white p-1'>Welcome to my Pokédex</p>
-        {children}
+      <body className="relative min-h-screen bg-background">
+        <Providers>{children}</Providers>
         <TailwindIndicator />
       </body>
     </html>

@@ -32,7 +32,7 @@ export const ThemeToggle = ({
   if (combobox) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild data-testid="theme-dropdown-trigger">
           <Button
             variant="outline"
             role="combobox"
@@ -51,6 +51,7 @@ export const ThemeToggle = ({
           <DropdownMenuItem
             role="light-toggle"
             onClick={() => setTheme('light')}
+            data-testid="theme-button"
           >
             <SunIcon className="mr-2 h-3 w-3" />
             <span>Light</span>
@@ -73,7 +74,7 @@ export const ThemeToggle = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild data-testid="theme-dropdown-trigger">
         <Button
           variant="ghost"
           size={labelled ? 'default' : 'icon'}
@@ -88,7 +89,11 @@ export const ThemeToggle = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem role="light-toggle" onClick={() => setTheme('light')}>
+        <DropdownMenuItem
+          role="light-toggle"
+          onClick={() => setTheme('light')}
+          data-testid="theme-button"
+        >
           <SunIcon className="mr-2 h-4 w-4" />
           <span>Light</span>
         </DropdownMenuItem>

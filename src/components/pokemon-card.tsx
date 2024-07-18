@@ -1,130 +1,72 @@
-import {
-  addLocalStorage,
-  getLocalStorage,
-  removeLocalStorage,
-} from '@/app/_actions/pokemon'
-import { Icons } from '@/components/icons'
-import { Blur } from '@/components/ui/blur'
-import {
-  Card,
-  CardCircle,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { useFetchPokemon } from '@/hooks/use-fetch-pokemon'
-import { CapitalizeFirstLetter } from '@/lib/utils'
-import { PokemonFavorites } from '@/types'
-import Image from 'next/image'
-import { HTMLAttributes, useState } from 'react'
-import { PokemonSkeleton } from './pokemon-skeleton'
+'use client'
 
-export interface PokemonCardProps extends HTMLAttributes<HTMLDivElement> {
-  pokemon: { name: string; url: string }
+import { CapitalizeFirstLetter, cn } from '@/lib/utils'
+import { Pokemon } from '@/types'
+import * as React from 'react'
+import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
+
+type PokemonCardProps = React.HTMLAttributes<HTMLDivElement> & {
+  pokemon: Pokemon
 }
 
-const PokemonCard = ({ pokemon, ...props }: PokemonCardProps) => {
-  const { url, name } = pokemon
-  const { data: Pokemon, isFetching } = useFetchPokemon(url, name)
-  const [active, setActive] = useState(false)
-
-  // Add Favorite to Local Storage
-  const HandleAddFavorite = (name: string, id: number) => {
-    const Pokemon = { name, id }
-    addLocalStorage('PokedexFavorites', Pokemon)
-    setActive(!active)
-  }
-
-  // Remove Favorite from Local Storage
-  const HandleDeleteFavorite = (id: number) => {
-    removeLocalStorage('PokedexFavorites', id)
-    setActive(!active)
-  }
-
-  // Sprite Image URL
-  const SpriteURL = Pokemon
-    ? Pokemon.sprites.other['official-artwork'].front_default
-    : ''
-
-  // Pokemon Types Array
-  const PokemonTypes = Pokemon
-    ? Pokemon?.types.map((item) => item.type.name)
-    : ['']
-
-  // Is Pokemon Favorited
-  const Favorites = getLocalStorage('PokedexFavorites') as PokemonFavorites[]
-  const isIdFavorited = Favorites.map((Favorite) => Favorite.id).includes(
-    Pokemon ? Pokemon.id : 0,
-  )
+export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
+  const spriteURL = pokemon.sprites.other['official-artwork'].front_default
+  const types = pokemon.types.map(({ type: { name } }) => name)
 
   return (
-    <>
-      {isFetching && <PokemonSkeleton key={pokemon.url} />}
-
-      {Pokemon && (
-        <Card className="w-[250px] overflow-hidden" {...props}>
-          <CardHeader>
-            <div className="relative flex h-[250px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-[#313338] shadow-xl">
-              {PokemonTypes.map((type, index) => (
-                <CardCircle
-                  square={index as 0 | 1 | 2 | 3}
-                  className={`bg-poke${CapitalizeFirstLetter(type)}`}
-                  key={type}
-                />
-              ))}
-              <Blur />
-              <Image
-                alt="pokemon image"
-                src={SpriteURL}
-                width={220}
-                height={220}
-                className="pointer-events-none z-10 select-none"
-                draggable={false}
-              />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <CardTitle className="hidden">{Pokemon.name}</CardTitle>
-            <div className="mx-1 flex items-center justify-between">
-              <p className="cursor-default capitalize text-zinc-300">
-                <span>
-                  #{Pokemon.id}
-                  {' - '}
-                </span>
-                {Pokemon.name}
-              </p>
-              {isIdFavorited ? (
-                <Icons.heart
-                  onClick={() => HandleDeleteFavorite(Pokemon.id)}
-                  className="h-5 w-5 cursor-pointer text-red-500 hover:text-red-900"
-                />
-              ) : (
-                <Icons.heart
-                  onClick={() => HandleAddFavorite(Pokemon.name, Pokemon.id)}
-                  className="h-5 w-5 cursor-pointer text-zinc-500 hover:text-red-300"
-                />
-              )}
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="mx-1 mt-1 flex select-none items-center justify-start gap-1 ">
-              {' '}
-              {PokemonTypes.map((type, index) => (
-                <div
-                  key={index}
-                  className={`text-normal cursor-pointer rounded-full border px-4 py-[0.5px] capitalize text-zinc-300 hover:bg-[#0f0f0f38]
-                border-poke${CapitalizeFirstLetter(type)}`}
-                >
-                  {type}
-                </div>
-              ))}
-            </div>
-          </CardFooter>
-        </Card>
-      )}
-    </>
+    <Card
+      className="relative -my-1.5 w-full space-y-2 border-none shadow-none"
+      {...props}
+    >
+      <span
+        className="absolute bottom-0 left-0 right-0 top-0 z-30 cursor-pointer"
+        onClick={() => console.log(pokemon.name)}
+      />
+      <CardHeader className="relative min-h-[250px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
+        {types?.map((type, index) => (
+          <div
+            key={type}
+            className={cn(
+              'absolute z-0 size-24 rounded-full',
+              `bg-poke${CapitalizeFirstLetter(type)}`,
+              index === 0 && '-left-10 -top-10',
+              index === 1 && '-right-10 -top-10',
+              index === 2 && '-bottom-10 -left-10',
+              index === 3 && '-bottom-10 -right-10',
+            )}
+          />
+        ))}
+        <div className="absolute -bottom-2 -left-2 -right-2 -top-2 backdrop-blur-[64px]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={spriteURL}
+          alt={pokemon.name}
+          className="z-20 w-full select-none"
+        />
+      </CardHeader>
+      <CardContent className="p-0">
+        <p className="cursor-default text-sm capitalize text-foreground">
+          <span className="font-bold">#{pokemon.id}</span>
+          <span> - </span>
+          {pokemon.name}
+        </p>
+      </CardContent>
+      <CardFooter className="flex select-none flex-wrap items-center justify-start gap-2 p-0">
+        {types?.map((type, index) => (
+          <div
+            key={index}
+            className={cn(
+              'relative overflow-hidden rounded-full border px-3 text-xs capitalize',
+              `border-poke${CapitalizeFirstLetter(type)}`,
+            )}
+          >
+            <span
+              className={`absolute bottom-0 left-0 right-0 top-0 z-0 opacity-10 bg-poke${CapitalizeFirstLetter(type)}`}
+            />
+            <span className="relative z-10 font-semibold">{type}</span>
+          </div>
+        ))}
+      </CardFooter>
+    </Card>
   )
 }
-
-export { PokemonCard }

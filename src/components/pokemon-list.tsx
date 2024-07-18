@@ -1,51 +1,34 @@
 'use client'
-import { PokemonCard } from '@/components/pokemon-card'
-import { useFetchAllPokemon } from '@/hooks/use-fetch-all-pokemon'
-import { FC, HTMLAttributes, JSX, useCallback, useEffect } from 'react'
+
+import { PokedexResults, Pokemon } from '@/types'
+import * as React from 'react'
+import { useQuery } from 'react-query'
+import { PokemonCard } from './pokemon-card'
 import { PokemonSkeleton } from './pokemon-skeleton'
 
-interface PokedexListProps extends HTMLAttributes<HTMLDivElement> {
-  children?: string | JSX.Element | JSX.Element[] | (string | JSX.Element)[]
+type PokemonListProps = React.HTMLAttributes<HTMLDivElement> & {
+  pokedex: PokedexResults[]
 }
 
-const PokemonList: FC<PokedexListProps> = ({ className }) => {
-  const { data: PokedexList, fetchNextPage } = useFetchAllPokemon()
-  const loadMorePokemon = useCallback(() => fetchNextPage(), [fetchNextPage])
-
-  const handlePokemonScroll = useCallback(
-    (e: Event) => {
-      const targetWindow = e.target as Document
-      const { documentElement } = targetWindow
-      const { scrollTop, scrollHeight } = documentElement
-      if (window.innerHeight + scrollTop + 150 >= scrollHeight)
-        loadMorePokemon()
+export function PokemonList({ pokedex }: PokemonListProps) {
+  const { data, isFetching } = useQuery<Pokemon[]>({
+    initialData: [],
+    queryKey: [`pokemons`],
+    queryFn: async () => {
+      const responses = await Promise.all(pokedex.map(({ url }) => fetch(url)))
+      const data = await Promise.all(responses.map((res) => res.json()))
+      return data as Pokemon[]
     },
-    [loadMorePokemon],
-  )
+    refetchOnWindowFocus: false,
+  })
 
-  useEffect(() => {
-    window.addEventListener('scroll', handlePokemonScroll)
-    return () => window.removeEventListener('scroll', handlePokemonScroll)
-  }, [handlePokemonScroll])
+  if (isFetching) {
+    return Array.from({ length: 20 }).map((_, index) => (
+      <PokemonSkeleton key={index} />
+    ))
+  }
 
-  return (
-    <section
-      className={`flex flex-wrap items-center justify-center gap-6 ${className}`}
-    >
-      <h1 className="hidden">Pokemon List</h1>
-
-      {Array.from({ length: 20 }).map((_, index) => (
-        <PokemonSkeleton key={index} />
-      ))}
-
-      {PokedexList &&
-        PokedexList.pages.map((PokePage) =>
-          PokePage.results.map((pokemon) => (
-            <PokemonCard key={pokemon.name} pokemon={pokemon} />
-          )),
-        )}
-    </section>
-  )
+  return data?.map((pokemon, index) => (
+    <PokemonCard pokemon={pokemon} key={index} />
+  ))
 }
-
-export { PokemonList }

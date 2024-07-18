@@ -27,9 +27,6 @@ export const dashboardConfig = {
 }
 
 export function MainNav() {
-  const teste = cn('bg-red-500', 'bg-green-800')
-  console.log(teste)
-
   return (
     <div className="hidden w-full items-center gap-6 lg:flex">
       <Link href="/" className="hidden items-center space-x-2 lg:flex">

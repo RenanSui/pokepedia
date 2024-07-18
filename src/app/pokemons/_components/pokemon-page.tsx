@@ -7,6 +7,7 @@ import { PokedexList } from '@/types'
 import axios from 'axios'
 import * as React from 'react'
 import { useQuery } from 'react-query'
+import PokemonViewOptions from './pokemon-view-options'
 
 export function PokemonPage() {
   const [currentPage, setCurrentPage] = React.useState(0)
@@ -41,7 +42,8 @@ export function PokemonPage() {
 
   return (
     <section className="relative min-h-[calc(100vh-154px)]">
-      <div className="flex justify-end px-4 pt-4">
+      <div className="flex items-center justify-between px-4 pt-4">
+        <PokemonViewOptions />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

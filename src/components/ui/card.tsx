@@ -1,88 +1,78 @@
+import * as React from 'react'
+
 import { cn } from '@/lib/utils'
-import { VariantProps, cva } from 'class-variance-authority'
-import { HTMLAttributes, forwardRef } from 'react'
 
-const CardCircleVariants = cva(
-  'transition-all duration-300 absolute h-[200px] w-[200px] rounded-full',
-  {
-    variants: {
-      square: {
-        default: '',
-        0: '-top-[45%] -right-[45%]',
-        1: '-top-[45%] -left-[45%]',
-        2: '-bottom-[45%] -right-[45%]',
-        3: '-bottom-[45%] -left-[45%]',
-      },
-      circle: {
-        default: '',
-        0: 'top-[50%] -right-[5%] -translate-y-[50%]',
-        1: 'top-[50%] -left-[5%] -translate-y-[50%]',
-        2: '-bottom-[5%] -right-[5%]',
-        3: '-bottom-[5%] -left-[5%]',
-      },
-    },
-    defaultVariants: {
-      square: 'default',
-      circle: 'default',
-    },
-  },
-)
-
-interface CardCircleProps
-  extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof CardCircleVariants> {}
-
-const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <section ref={ref} className={cn('', className)} {...props} />
-  ),
-)
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    as?: 'div' | 'section' | 'article'
+  }
+>(({ className, as: Comp = 'div', ...props }, ref) => (
+  <Comp
+    ref={ref}
+    className={cn(
+      'rounded-xl border bg-card text-card-foreground shadow',
+      className,
+    )}
+    {...props}
+  />
+))
 Card.displayName = 'Card'
 
-const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('', className)} {...props} />
-  ),
-)
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('flex flex-col space-y-1.5 p-6', className)}
+    {...props}
+  />
+))
 CardHeader.displayName = 'CardHeader'
 
-const CardTitle = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <h3
-      ref={ref}
-      className={cn(
-        'text-lg font-semibold leading-none tracking-tight',
-        className,
-      )}
-      {...props}
-    />
-  ),
-)
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement> & { as?: 'h1' | 'h2' | 'h3' | 'h4' }
+>(({ className, as: Comp = 'h3', ...props }, ref) => (
+  <Comp
+    ref={ref}
+    className={cn('font-semibold leading-tight tracking-tight', className)}
+    {...props}
+  />
+))
 CardTitle.displayName = 'CardTitle'
 
-const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('', className)} {...props} />
-  ),
-)
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn('text-sm text-muted-foreground', className)}
+    {...props}
+  />
+))
+CardDescription.displayName = 'CardDescription'
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
+))
 CardContent.displayName = 'CardContent'
 
-const CardFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('', className)} {...props} />
-  ),
-)
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('flex items-center p-6 pt-0', className)}
+    {...props}
+  />
+))
 CardFooter.displayName = 'CardFooter'
 
-const CardCircle = forwardRef<HTMLDivElement, CardCircleProps>(
-  ({ className, square, circle, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(CardCircleVariants({ square, circle, className }))}
-      {...props}
-    />
-  ),
-)
-CardCircle.displayName = 'CardCircle'
-
-export { Card, CardCircle, CardContent, CardFooter, CardHeader, CardTitle }
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }

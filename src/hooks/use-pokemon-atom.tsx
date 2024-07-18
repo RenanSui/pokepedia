@@ -20,3 +20,10 @@ const configTypesAtom = atom<PokemonConfigTypes>(true)
 export function useConfigTypesAtom() {
   return useAtom(configTypesAtom)
 }
+
+type PokemonPaginationSize = number
+const configPaginationSizeAtom = atom<PokemonPaginationSize>(10)
+
+export function useConfigPaginationSize() {
+  return useAtom(configPaginationSizeAtom)
+}

@@ -1,5 +1,8 @@
 import { Providers } from '@/components/providers/providers'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { cn } from '@/lib/utils'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
 import * as React from 'react'
 import '../styles/globals.css'
 
@@ -24,7 +27,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="relative min-h-screen bg-background">
+      <body
+        className={cn(
+          'relative min-h-screen bg-background font-sans',
+          GeistSans.variable,
+          GeistMono.variable,
+        )}
+      >
         <Providers>{children}</Providers>
         <TailwindIndicator />
       </body>

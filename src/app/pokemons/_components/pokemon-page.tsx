@@ -3,21 +3,24 @@
 import { Pagination } from '@/components/pagination'
 import { PokemonList } from '@/components/pokemon-list'
 import { PokemonSkeleton } from '@/components/pokemon-skeleton'
+import { useConfigPaginationSize } from '@/hooks/use-pokemon-atom'
 import { PokedexList } from '@/types'
 import axios from 'axios'
 import * as React from 'react'
 import { useQuery } from 'react-query'
+import { PokemonPaginationSize } from './pokemon-pagination-size'
 import PokemonViewOptions from './pokemon-view-options'
 
 export function PokemonPage() {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [totalPages, setTotalPages] = React.useState(0)
-  const itemsPerPage = 20
+  const [configSize] = useConfigPaginationSize()
+  const itemsPerPage = configSize
 
   const { data: pokemons, isFetching } = useQuery<PokedexList>({
     queryKey: [`pokemon-list-${currentPage}`],
     queryFn: async () => {
-      const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentPage * 20}&limit=20`
+      const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentPage * configSize}&limit=${configSize}`
       const { data } = await axios.get(url)
       return data
     },
@@ -29,7 +32,7 @@ export function PokemonPage() {
 
   React.useEffect(() => {
     setTotalPages(Math.ceil(totalItems / itemsPerPage))
-  }, [totalItems])
+  }, [itemsPerPage, totalItems])
 
   const handlePageChange = (page: number) => {
     if (page < 0) {
@@ -42,8 +45,9 @@ export function PokemonPage() {
 
   return (
     <section className="relative min-h-[calc(100vh-154px)]">
-      <div className="flex items-center justify-between px-4 pt-4">
+      <div className="flex items-center justify-end px-4 pt-4 lg:justify-between">
         <PokemonViewOptions />
+        <PokemonPaginationSize className="ml-auto px-8" />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -51,14 +55,15 @@ export function PokemonPage() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 px-4 py-4 xs:grid-cols-3 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 px-4 py-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {isFetching &&
-          Array.from({ length: 20 }).map((_, index) => (
+          Array.from({ length: configSize }).map((_, index) => (
             <PokemonSkeleton key={index} />
           ))}
         {!isFetching && pokemons && <PokemonList pokedex={pokemons.results} />}
       </div>
       <div className="flex justify-end px-4 pb-4">
+        <PokemonPaginationSize className="px-8" />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

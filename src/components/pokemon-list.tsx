@@ -5,12 +5,14 @@ import * as React from 'react'
 import { useQuery } from 'react-query'
 import { PokemonCard } from './pokemon-card'
 import { PokemonSkeleton } from './pokemon-skeleton'
+import { useConfigPaginationSize } from '@/hooks/use-pokemon-atom'
 
 type PokemonListProps = React.HTMLAttributes<HTMLDivElement> & {
   pokedex: PokedexResults[]
 }
 
 export function PokemonList({ pokedex }: PokemonListProps) {
+  const [configSize] = useConfigPaginationSize()
   const { data, isFetching } = useQuery<Pokemon[]>({
     initialData: [],
     queryKey: [`pokemons`],
@@ -23,7 +25,7 @@ export function PokemonList({ pokedex }: PokemonListProps) {
   })
 
   if (isFetching) {
-    return Array.from({ length: 20 }).map((_, index) => (
+    return Array.from({ length: configSize }).map((_, index) => (
       <PokemonSkeleton key={index} />
     ))
   }

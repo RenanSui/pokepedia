@@ -19,7 +19,7 @@ export function PokemonPaginationSize({
 
   return (
     <div className={cn('flex items-center space-x-2', className)}>
-      <p className="whitespace-nowrap text-sm font-medium">Rows per page</p>
+      <p className="whitespace-nowrap text-sm font-medium">Pokemons per page</p>
       <Select
         value={`${configSize}`}
         onValueChange={(value) => {

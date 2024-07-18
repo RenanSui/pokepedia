@@ -1,13 +1,19 @@
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
-import { Heart, Maximize, Minimize } from 'lucide-react'
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+  MagnifyingGlassIcon,
+} from '@radix-ui/react-icons'
 
 type IconProps = React.HTMLAttributes<SVGElement>
 
 export const Icons = {
-  heart: Heart,
-  maximize: Maximize,
-  minimize: Minimize,
   search: MagnifyingGlassIcon,
+  chevronLeft: ChevronLeftIcon,
+  chevronRight: ChevronRightIcon,
+  doubleArrowLeftIcon: DoubleArrowLeftIcon,
+  doubleArrowRightIcon: DoubleArrowRightIcon,
   github: (props: IconProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path

@@ -1,6 +1,6 @@
 import { atom, useAtom } from 'jotai'
 
-type PokemonSelect = { selected: number | null }
+type PokemonSelect = { selected: string | null }
 const configSelectAtom = atom<PokemonSelect>({ selected: null })
 
 export function usePokemonAtom() {

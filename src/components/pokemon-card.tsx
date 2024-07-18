@@ -1,5 +1,6 @@
 'use client'
 
+import { useConfigNameAtom, useConfigTypesAtom } from '@/hooks/use-pokemon-atom'
 import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
 import * as React from 'react'
@@ -10,6 +11,9 @@ type PokemonCardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
+  const [configName] = useConfigNameAtom()
+  const [configTypes] = useConfigTypesAtom()
+
   const spriteURL = pokemon.sprites.other['official-artwork'].front_default
   const types = pokemon.types.map(({ type: { name } }) => name)
 
@@ -45,27 +49,30 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
         />
       </CardHeader>
       <CardContent className="p-0">
-        <p className="cursor-default text-sm capitalize text-foreground">
-          <span className="font-bold">#{pokemon.id}</span>
-          <span> - </span>
-          {pokemon.name}
-        </p>
+        {configName && (
+          <p className="cursor-default capitalize text-foreground">
+            <span className="font-bold">#{pokemon.id}</span>
+            <span> - </span>
+            {pokemon.name}
+          </p>
+        )}
       </CardContent>
       <CardFooter className="flex select-none flex-wrap items-center justify-start gap-2 p-0">
-        {types?.map((type, index) => (
-          <div
-            key={index}
-            className={cn(
-              'relative overflow-hidden rounded-full border px-3 text-xs capitalize',
-              `border-poke${CapitalizeFirstLetter(type)}`,
-            )}
-          >
-            <span
-              className={`absolute bottom-0 left-0 right-0 top-0 z-0 opacity-10 bg-poke${CapitalizeFirstLetter(type)}`}
-            />
-            <span className="relative z-10 font-semibold">{type}</span>
-          </div>
-        ))}
+        {configTypes &&
+          types?.map((type, index) => (
+            <div
+              key={index}
+              className={cn(
+                'relative overflow-hidden rounded-full border px-3 text-xs capitalize',
+                `border-poke${CapitalizeFirstLetter(type)}`,
+              )}
+            >
+              <span
+                className={`absolute bottom-0 left-0 right-0 top-0 z-0 opacity-10 bg-poke${CapitalizeFirstLetter(type)}`}
+              />
+              <span className="relative z-10 font-semibold">{type}</span>
+            </div>
+          ))}
       </CardFooter>
     </Card>
   )

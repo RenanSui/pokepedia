@@ -1,32 +1,18 @@
 export type StorageKey = 'PokedexFavorites' | ''
 
-export interface PokemonFavorites {
-  name: string
-  id: number
-}
+export type PokedexResults = { name: string; url: string }
 
-export interface PokedexSchema {
+export type PokedexList = {
   count: number
   next: string
   previous: string
-  results: [
-    {
-      name: string
-      url: string
-    },
-  ]
+  results: PokedexResults[]
 }
 
-export interface PokemonSchema {
+export type Pokemon = {
   name: string
   id: number
-  types: [
-    {
-      type: {
-        name: string
-      }
-    },
-  ]
+  types: { type: { name: string } }[]
   sprites: {
     other: {
       'official-artwork': {

@@ -44,7 +44,7 @@ export function PokemonPage() {
   }
 
   return (
-    <section className="relative min-h-[calc(100vh-154px)]">
+    <section className="relative min-h-[calc(100vh-108px)]">
       <div className="flex items-center justify-end px-4 pt-4 lg:justify-between">
         <PokemonViewOptions />
         <PokemonPaginationSize className="ml-auto px-8" />

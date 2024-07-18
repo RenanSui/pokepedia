@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   darkMode: 'class', // 'data-theme="dark"'
@@ -12,8 +13,12 @@ const config: Config = {
       },
     },
     extend: {
+      screens: {
+        xs: '480px',
+        xxs: '380px',
+      },
       colors: {
-        // start of pokemon colors
+        // pokemons
         pokeBug: '#7d872f',
         pokeDark: '#b5b2ac',
         pokeDragon: '#6040ac',
@@ -34,8 +39,8 @@ const config: Config = {
         pokeSteel: '#5f5f8e',
         pokeUnkown: '#4e8f7e',
         pokeWater: '#009dc4',
-        // end of pokemon colors
 
+        // pokemons
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -74,6 +79,11 @@ const config: Config = {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', ...fontFamily.sans],
+        mono: ['var(--font-geist-mono)', ...fontFamily.mono],
+        heading: ['var(--font-heading)', ...fontFamily.sans],
       },
       keyframes: {
         'accordion-down': {
@@ -130,12 +140,8 @@ const config: Config = {
           '20%,50%': { opacity: '0' },
         },
       },
+      /* */
       animation: {
-        expanding: 'expanding 3s ease-in-out',
-        shrinking: 'shrinking 3s ease-in-out',
-        fadeIn: 'fadeIn 3s ease-in-out',
-        fadeOut: 'fadeOut 1s ease-in-out',
-        loading: 'loading 1s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         wiggle: 'wiggle 0.8s both',
@@ -145,7 +151,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 }
-
 export default config

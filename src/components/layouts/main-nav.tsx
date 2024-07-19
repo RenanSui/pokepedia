@@ -1,32 +1,16 @@
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
+import { MainNavItem } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Icons } from '../icons'
 import { Button, buttonVariants } from '../ui/button'
 
-export const dashboardConfig = {
-  SidebarNav: [
-    {
-      title: 'Lobby',
-      href: '/',
-      disabled: false,
-      icon: 'listBulletIcon',
-      description: 'Manage your finances',
-      items: [],
-    },
-    {
-      title: 'Pokémons',
-      href: '/pokemons',
-      disabled: true,
-      icon: 'avatarIcon',
-      description: 'Manage your account settings',
-      items: [],
-    },
-  ],
+interface MobileNavProps {
+  items?: MainNavItem[]
 }
 
-export function MainNav() {
+export function MainNav({ items }: MobileNavProps) {
   return (
     <div className="hidden w-full items-center gap-6 lg:flex">
       <Link href="/" className="hidden items-center space-x-2 lg:flex">
@@ -43,11 +27,11 @@ export function MainNav() {
         <span className="sr-only">Home</span>
       </Link>
       <div className="flex items-center justify-center gap-2 py-2.5">
-        {dashboardConfig.SidebarNav.map((nav) => {
+        {items?.[0].items?.map((nav) => {
           return (
             <Link
               key={`nav-${nav.title}`}
-              href={nav.href}
+              href={nav.href ?? '/'}
               className={cn(buttonVariants({ variant: 'ghost' }))}
             >
               {nav.title}

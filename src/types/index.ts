@@ -12,6 +12,8 @@ export type PokedexList = {
 export type Pokemon = {
   name: string
   id: number
+  height: number
+  weight: number
   types: { type: { name: string } }[]
   sprites: {
     other: {

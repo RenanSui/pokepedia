@@ -21,7 +21,7 @@ export default function PokemonViewOptions() {
           aria-label="Toggle columns"
           variant="outline"
           size="sm"
-          className="hidden h-8 lg:flex"
+          className="flex h-8 w-fit"
         >
           <Icons.options className="mr-2 h-4 w-4" />
           View

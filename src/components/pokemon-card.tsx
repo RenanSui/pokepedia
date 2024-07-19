@@ -1,6 +1,10 @@
 'use client'
 
-import { useConfigNameAtom, useConfigTypesAtom } from '@/hooks/use-pokemon-atom'
+import {
+  useConfigNameAtom,
+  useConfigTypesAtom,
+  usePokemonAtom,
+} from '@/hooks/use-pokemon-atom'
 import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
 import * as React from 'react'
@@ -13,6 +17,7 @@ type PokemonCardProps = React.HTMLAttributes<HTMLDivElement> & {
 export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
   const [configName] = useConfigNameAtom()
   const [configTypes] = useConfigTypesAtom()
+  const [, setPokemon] = usePokemonAtom()
 
   const spriteURL = pokemon.sprites.other['official-artwork'].front_default
   const types = pokemon.types.map(({ type: { name } }) => name)
@@ -24,9 +29,9 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
     >
       <span
         className="absolute bottom-0 left-0 right-0 top-0 z-30 cursor-pointer"
-        onClick={() => console.log(pokemon.name)}
+        onClick={() => setPokemon({ selected: pokemon.name })}
       />
-      <CardHeader className="relative min-h-[250px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
+      <CardHeader className="relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
         {types?.map((type, index) => (
           <div
             key={type}
@@ -46,12 +51,15 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
           src={spriteURL}
           alt={pokemon.name}
           className="z-20 w-full select-none"
+          loading="lazy"
         />
       </CardHeader>
       <CardContent className="p-0">
         {configName && (
           <p className="cursor-default capitalize text-foreground">
-            <span className="font-bold">#{pokemon.id}</span>
+            <span className="font-bold">
+              #{pokemon.id.toString().padStart(4, '0')}
+            </span>
             <span> - </span>
             {pokemon.name}
           </p>

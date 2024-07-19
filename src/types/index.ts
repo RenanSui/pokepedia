@@ -1,4 +1,24 @@
-export type StorageKey = 'PokedexFavorites' | ''
+import { Icons } from '@/components/icons'
+
+export interface NavItem {
+  id?: string
+  title: string
+  href?: string
+  disabled?: boolean
+  external?: boolean
+  icon?: keyof typeof Icons
+  description?: string
+}
+
+export interface NavItemWithChildren extends NavItem {
+  items: NavItemWithChildren[]
+}
+
+export interface NavItemWithOptionalChildren extends NavItem {
+  items?: NavItemWithChildren[]
+}
+
+export type MainNavItem = NavItemWithOptionalChildren
 
 export type PokedexResults = { name: string; url: string }
 

@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
+  HamburgerMenuIcon,
   MagnifyingGlassIcon,
   MixerHorizontalIcon,
 } from '@radix-ui/react-icons'
@@ -16,6 +17,7 @@ export const Icons = {
   doubleArrowLeftIcon: DoubleArrowLeftIcon,
   doubleArrowRightIcon: DoubleArrowRightIcon,
   options: MixerHorizontalIcon,
+  menu: HamburgerMenuIcon,
   github: (props: IconProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path

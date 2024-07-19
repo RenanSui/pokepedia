@@ -10,6 +10,7 @@ import * as React from 'react'
 import { useQuery } from 'react-query'
 import { PokemonPaginationSize } from './pokemon-pagination-size'
 import PokemonViewOptions from './pokemon-view-options'
+import { PokemonDialog } from '@/components/pokemon-dialog'
 
 export function PokemonPage() {
   const [currentPage, setCurrentPage] = React.useState(0)
@@ -45,9 +46,9 @@ export function PokemonPage() {
 
   return (
     <section className="relative min-h-[calc(100vh-108px)]">
-      <div className="flex items-center justify-end px-4 pt-4 lg:justify-between">
+      <div className="flex flex-col-reverse gap-2 px-4 pt-4 md:flex-row md:items-center md:justify-end lg:justify-between">
         <PokemonViewOptions />
-        <PokemonPaginationSize className="ml-auto px-8" />
+        <PokemonPaginationSize className="md:ml-auto lg:px-8" />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -62,14 +63,17 @@ export function PokemonPage() {
           ))}
         {!isFetching && pokemons && <PokemonList pokedex={pokemons.results} />}
       </div>
-      <div className="flex justify-end px-4 pb-4">
-        <PokemonPaginationSize className="px-8" />
+
+      <div className="flex flex-col-reverse gap-2 px-4 pb-4 pt-4 md:flex-row md:items-center md:justify-end lg:justify-between">
+        <PokemonPaginationSize className="lg:px-8" />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
         />
       </div>
+
+      <PokemonDialog />
     </section>
   )
 }

@@ -1,12 +1,9 @@
 'use client'
 
-import {
-  useConfigNameAtom,
-  useConfigTypesAtom,
-  usePokemonAtom,
-} from '@/hooks/use-pokemon-atom'
+import { useConfigNameAtom, useConfigTypesAtom } from '@/hooks/use-pokemon-atom'
 import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import * as React from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
 
@@ -15,9 +12,12 @@ type PokemonCardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
   const [configName] = useConfigNameAtom()
   const [configTypes] = useConfigTypesAtom()
-  const [, setPokemon] = usePokemonAtom()
 
   const spriteURL = pokemon.sprites.other['official-artwork'].front_default
   const types = pokemon.types.map(({ type: { name } }) => name)
@@ -29,7 +29,11 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
     >
       <span
         className="absolute bottom-0 left-0 right-0 top-0 z-30 cursor-pointer"
-        onClick={() => setPokemon({ selected: pokemon.name })}
+        onClick={() => {
+          const params = new URLSearchParams(searchParams)
+          params.set('pokemon', pokemon.name)
+          replace(`${pathname}?${params.toString()}`)
+        }}
       />
       <CardHeader className="relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
         {types?.map((type, index) => (

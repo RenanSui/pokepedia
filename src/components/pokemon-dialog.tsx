@@ -5,29 +5,33 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { usePokemonAtom } from '@/hooks/use-pokemon-atom'
 import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
 import axios from 'axios'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useQuery } from 'react-query'
 import PokemonDetails from './pokemon-details'
 
 export function PokemonDialog() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
-  const [{ selected }, setPokemon] = usePokemonAtom()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const pokemonName = searchParams.get('pokemon')
 
   const { data: pokemon } = useQuery<Pokemon>({
-    queryKey: [selected],
+    queryKey: [pokemonName],
     queryFn: async () => {
-      const url = `https://pokeapi.co/api/v2/pokemon/${selected}/`
+      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`
       const { data } = await axios.get(url)
       return data
     },
     refetchOnWindowFocus: false,
-    keepPreviousData: true,
   })
 
   if (isDesktop || !pokemon) {
@@ -35,12 +39,15 @@ export function PokemonDialog() {
   }
 
   const types = pokemon.types.map(({ type: { name } }) => name)
+  console.log(pokemonName)
 
   return (
     <Dialog
-      open={!!selected}
+      open={!!pokemonName}
       onOpenChange={() => {
-        setPokemon({ selected: null })
+        const params = new URLSearchParams(searchParams)
+        params.delete('pokemon')
+        replace(`${pathname}?${params.toString()}`)
       }}
     >
       <DialogTrigger className="sr-only">Open</DialogTrigger>
@@ -60,9 +67,9 @@ export function PokemonDialog() {
         ))}
         <div className="absolute -bottom-2 -left-2 -right-2 -top-2 z-10 backdrop-blur-[300px]" />
         <DialogHeader className="z-20 p-4">
-          <DialogDescription>
-            <PokemonDetails pokemon={pokemon} />
-          </DialogDescription>
+          <DialogTitle>Pokémon</DialogTitle>
+          <DialogDescription></DialogDescription>
+          <PokemonDetails pokemon={pokemon} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

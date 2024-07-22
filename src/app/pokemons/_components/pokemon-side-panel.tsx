@@ -2,18 +2,20 @@
 
 import PokemonDetails from '@/components/pokemon-details'
 import { Skeleton } from '@/components/ui/skeleton'
-import { usePokemonAtom } from '@/hooks/use-pokemon-atom'
 import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
 import axios from 'axios'
+import { useSearchParams } from 'next/navigation'
 import { useQuery } from 'react-query'
 
 export function PokemonSidePanel() {
-  const [{ selected }] = usePokemonAtom()
+  const searchParams = useSearchParams()
+  const pokemonName = searchParams.get('pokemon')
+
   const { data: pokemon, isFetching } = useQuery<Pokemon>({
-    queryKey: [selected],
+    queryKey: [pokemonName],
     queryFn: async () => {
-      const url = `https://pokeapi.co/api/v2/pokemon/${selected}/`
+      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`
       const { data } = await axios.get(url)
       return data
     },

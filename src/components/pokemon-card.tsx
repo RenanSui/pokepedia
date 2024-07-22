@@ -16,6 +16,8 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
   const pathname = usePathname()
   const { replace } = useRouter()
 
+  const pokemonName = searchParams.get('pokemon')
+
   const [configName] = useConfigNameAtom()
   const [configTypes] = useConfigTypesAtom()
 
@@ -35,7 +37,12 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
           replace(`${pathname}?${params.toString()}`)
         }}
       />
-      <CardHeader className="relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
+      <CardHeader
+        className={cn(
+          'relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900',
+          pokemonName === pokemon.name && 'border-2 border-red-600',
+        )}
+      >
         {types?.map((type, index) => (
           <div
             key={type}

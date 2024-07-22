@@ -54,7 +54,7 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
           loading="lazy"
         />
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="relative z-50 p-0">
         {configName && (
           <p className="cursor-default capitalize text-foreground">
             <span className="font-bold">

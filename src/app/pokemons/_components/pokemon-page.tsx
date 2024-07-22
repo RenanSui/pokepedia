@@ -77,7 +77,7 @@ export function PokemonPage() {
         </div>
       </ScrollArea>
 
-      <div className="flex flex-col-reverse gap-2 px-4 pb-4 pt-4 md:flex-row md:items-center md:justify-end lg:justify-between">
+      <div className="flex flex-col-reverse gap-2 px-4 pb-4 pt-4 md:flex-row md:items-center md:justify-end">
         <PokemonPaginationSize className="lg:px-8" />
         <Pagination
           currentPage={currentPage}

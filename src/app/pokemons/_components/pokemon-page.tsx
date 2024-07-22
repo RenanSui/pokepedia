@@ -8,19 +8,24 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { useConfigPaginationSize } from '@/hooks/use-pokemon-atom'
 import { PokedexList } from '@/types'
 import axios from 'axios'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import * as React from 'react'
 import { useQuery } from 'react-query'
 import { PokemonPaginationSize } from './pokemon-pagination-size'
 import PokemonViewOptions from './pokemon-view-options'
 
 export function PokemonPage() {
-  const [currentPage, setCurrentPage] = React.useState(0)
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const currentPage = Math.max(0, Number(searchParams.get('page')) - 1)
   const [totalPages, setTotalPages] = React.useState(0)
   const [configSize] = useConfigPaginationSize()
   const itemsPerPage = configSize
 
   const { data: pokemons, isFetching } = useQuery<PokedexList>({
-    queryKey: [`pokemon-list-${currentPage}`],
+    queryKey: [`pokemon-list-${currentPage}-${configSize}`],
     queryFn: async () => {
       const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentPage * configSize}&limit=${configSize}`
       const { data } = await axios.get(url)
@@ -42,7 +47,10 @@ export function PokemonPage() {
     } else if (page >= totalPages) {
       page = totalPages - 1
     }
-    setCurrentPage(page)
+
+    const params = new URLSearchParams(searchParams)
+    params.set('page', String(page + 1))
+    replace(`${pathname}?${params.toString()}`)
   }
 
   return (

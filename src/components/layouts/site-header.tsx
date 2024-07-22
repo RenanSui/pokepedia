@@ -5,7 +5,7 @@ import { MobileNav } from './mobile-nav'
 export const SiteHeader = async () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex items-center">
+      <div className="container flex max-w-none items-center">
         <MainNav items={siteConfig.mainNav} />
         <MobileNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">

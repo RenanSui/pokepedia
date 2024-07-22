@@ -9,7 +9,7 @@ import { ThemeToggle } from './theme-toggle'
 export const SiteFooter = () => {
   return (
     <footer className="relative z-50 w-full border-t bg-background">
-      <Shell className="py-2 md:py-2">
+      <Shell className="max-w-none py-2 md:py-2">
         <section className="flex items-center space-x-4">
           <div className="flex-1 text-left text-sm leading-loose text-muted-foreground">
             Built by{' '}

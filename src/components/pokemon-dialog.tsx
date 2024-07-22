@@ -26,6 +26,8 @@ export function PokemonDialog() {
       const { data } = await axios.get(url)
       return data
     },
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   })
 
   if (isDesktop || !pokemon) {

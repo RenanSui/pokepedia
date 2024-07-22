@@ -1,8 +1,10 @@
 'use client'
 
 import { Pagination } from '@/components/pagination'
+import { PokemonDialog } from '@/components/pokemon-dialog'
 import { PokemonList } from '@/components/pokemon-list'
 import { PokemonSkeleton } from '@/components/pokemon-skeleton'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { useConfigPaginationSize } from '@/hooks/use-pokemon-atom'
 import { PokedexList } from '@/types'
 import axios from 'axios'
@@ -10,7 +12,6 @@ import * as React from 'react'
 import { useQuery } from 'react-query'
 import { PokemonPaginationSize } from './pokemon-pagination-size'
 import PokemonViewOptions from './pokemon-view-options'
-import { PokemonDialog } from '@/components/pokemon-dialog'
 
 export function PokemonPage() {
   const [currentPage, setCurrentPage] = React.useState(0)
@@ -45,7 +46,7 @@ export function PokemonPage() {
   }
 
   return (
-    <section className="relative min-h-[calc(100vh-108px)]">
+    <section className="relative min-h-[calc(100vh-110px)]">
       <div className="flex flex-col-reverse gap-2 px-4 pt-4 md:flex-row md:items-center md:justify-end lg:justify-between">
         <PokemonViewOptions />
         <PokemonPaginationSize className="md:ml-auto lg:px-8" />
@@ -56,13 +57,17 @@ export function PokemonPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 px-4 py-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {isFetching &&
-          Array.from({ length: configSize }).map((_, index) => (
-            <PokemonSkeleton key={index} />
-          ))}
-        {!isFetching && pokemons && <PokemonList pokedex={pokemons.results} />}
-      </div>
+      <ScrollArea className="h-[calc(100vh-230px)]">
+        <div className="grid grid-cols-1 gap-4 px-4 py-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {isFetching &&
+            Array.from({ length: configSize }).map((_, index) => (
+              <PokemonSkeleton key={index} />
+            ))}
+          {!isFetching && pokemons && (
+            <PokemonList pokedex={pokemons.results} />
+          )}
+        </div>
+      </ScrollArea>
 
       <div className="flex flex-col-reverse gap-2 px-4 pb-4 pt-4 md:flex-row md:items-center md:justify-end lg:justify-between">
         <PokemonPaginationSize className="lg:px-8" />

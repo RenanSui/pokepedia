@@ -39,7 +39,7 @@ export function PokemonCard({ pokemon, ...props }: PokemonCardProps) {
       />
       <CardHeader
         className={cn(
-          'relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900',
+          'relative aspect-square min-h-[100px] w-full flex-1 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-2 transition-all dark:bg-zinc-900',
           pokemonName === pokemon.name && 'border-2 border-red-600',
         )}
       >

@@ -9,7 +9,7 @@ import { useConfigPaginationSize } from '@/hooks/use-pokemon-atom'
 import { cn } from '@/lib/utils'
 
 export function PokemonPaginationSize({
-  pageSizeOptions = [10, 20, 30, 40, 50],
+  pageSizeOptions = [10, 15, 20, 25, 30],
   className,
 }: {
   pageSizeOptions?: number[]

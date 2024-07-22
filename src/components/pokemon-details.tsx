@@ -2,7 +2,13 @@ import { CapitalizeFirstLetter, cn } from '@/lib/utils'
 import { Pokemon } from '@/types'
 import { Separator } from './ui/separator'
 
-export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
+export default function PokemonDetails({
+  pokemon,
+  isSidePanel = false,
+}: {
+  pokemon: Pokemon
+  isSidePanel?: boolean
+}) {
   const spriteURL = pokemon.sprites.other['official-artwork'].front_default
   const types = pokemon.types.map(({ type: { name } }) => name)
 
@@ -15,23 +21,28 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         className="z-20 mx-auto max-w-80"
         loading="lazy"
       />
-      <div className="rounded-xl bg-background/80 p-2">
+      <div
+        className={cn(
+          'rounded-xl bg-background/80 p-2',
+          isSidePanel && 'bg-background/0 p-0',
+        )}
+      >
         <div className="flex gap-4 py-2">
-          <span className="w-20 text-end">National N°</span>
+          <span className="w-24 text-end">National N°</span>
           <span className="font-bold text-foreground">
             {pokemon.id.toString().padStart(4, '0')}
           </span>
         </div>
         <Separator />
         <div className="flex gap-4 py-2">
-          <span className="w-20 text-end">Name</span>
+          <span className="w-24 text-end">Name</span>
           <span className="font-bold capitalize text-foreground">
             {pokemon.name}
           </span>
         </div>
         <Separator />
         <div className="flex gap-4 py-2">
-          <span className="w-20 text-end">Type</span>
+          <span className="w-24 text-end">Type</span>
           <div className="flex gap-2 ">
             {types?.map((type, index) => (
               <div
@@ -51,14 +62,14 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         </div>
         <Separator />
         <div className="flex gap-4 py-2">
-          <span className="w-20 text-end">Height</span>
+          <span className="w-24 text-end">Height</span>
           <span className="font-bold text-foreground">
             {pokemon.height / 10} m
           </span>
         </div>
         <Separator />
         <div className="flex gap-4 py-2">
-          <span className="w-20 text-end">Weight</span>
+          <span className="w-24 text-end">Weight</span>
           <span className="font-bold text-foreground">
             {pokemon.weight / 10} kg
           </span>

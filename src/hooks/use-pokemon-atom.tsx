@@ -1,4 +1,5 @@
 import { atom, useAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 
 type PokemonSelect = { selected: string | null }
 const configSelectAtom = atom<PokemonSelect>({ selected: null })
@@ -8,21 +9,30 @@ export function usePokemonAtom() {
 }
 
 type PokemonConfigName = boolean
-const configNameAtom = atom<PokemonConfigName>(true)
+const configNameAtom = atomWithStorage<PokemonConfigName>(
+  'configNameAtom',
+  true,
+)
 
 export function useConfigNameAtom() {
   return useAtom(configNameAtom)
 }
 
 type PokemonConfigTypes = boolean
-const configTypesAtom = atom<PokemonConfigTypes>(true)
+const configTypesAtom = atomWithStorage<PokemonConfigTypes>(
+  'configTypesAtom',
+  true,
+)
 
 export function useConfigTypesAtom() {
   return useAtom(configTypesAtom)
 }
 
 type PokemonPaginationSize = number
-const configPaginationSizeAtom = atom<PokemonPaginationSize>(10)
+const configPaginationSizeAtom = atomWithStorage<PokemonPaginationSize>(
+  'configPaginationSizeAtom',
+  10,
+)
 
 export function useConfigPaginationSize() {
   return useAtom(configPaginationSizeAtom)

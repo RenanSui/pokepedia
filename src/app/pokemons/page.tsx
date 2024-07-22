@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { PokemonLayout } from './_components/pokemon-layout'
 import { PokemonPage } from './_components/pokemon-page'
+import { PokemonSidePanel } from './_components/pokemon-side-panel'
 
 export default function page() {
   const layout = cookies().get('react-resizable-panels:layout')
@@ -10,7 +11,10 @@ export default function page() {
     | undefined
 
   return (
-    <PokemonLayout defaultLayout={defaultLayout} sidePanel={<div>Oi</div>}>
+    <PokemonLayout
+      defaultLayout={defaultLayout}
+      sidePanel={<PokemonSidePanel />}
+    >
       <PokemonPage />
     </PokemonLayout>
   )

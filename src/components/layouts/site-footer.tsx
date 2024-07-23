@@ -6,10 +6,14 @@ import { Shell } from '../shell'
 import { buttonVariants } from '../ui/button'
 import { ThemeToggle } from './theme-toggle'
 
-export const SiteFooter = () => {
+type SiteFooterProps = React.HTMLAttributes<HTMLDivElement> & {
+  fullWidth?: boolean
+}
+
+export const SiteFooter = ({ fullWidth }: SiteFooterProps) => {
   return (
     <footer className="relative z-50 w-full border-t bg-background">
-      <Shell className="max-w-none py-2 md:py-2">
+      <Shell className={cn('py-2 md:py-2', fullWidth && 'max-w-none')}>
         <section className="flex items-center space-x-4">
           <div className="flex-1 text-left text-sm leading-loose text-muted-foreground">
             Built by{' '}

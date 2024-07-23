@@ -9,10 +9,9 @@ export default function PokemonsLayout({
 }) {
   return (
     <div className="relative flex min-h-[calc(100vh)] flex-col">
-      {/* <div className="grainy-noise absolute left-1/2 top-1/2 min-h-screen w-full -translate-x-1/2 -translate-y-1/2" /> */}
-      <SiteHeader />
+      <SiteHeader fullWidth />
       <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <SiteFooter fullWidth />
     </div>
   )
 }
